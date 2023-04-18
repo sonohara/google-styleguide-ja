@@ -25,13 +25,13 @@ Go Styleのドキュメント一式は [Overview](index.ja.md#about) をご覧�
 
 以下のセクションは、スタイルの決定からガイドの別の部分に移動しています：
 
-*   **MixedCaps**: see [guide#mixed-caps](guide.ja.md#mixed-caps)
+* **MixedCaps**: see [guide#mixed-caps](guide.ja.md#mixed-caps)
     <a id="mixed-caps"></a>
 
-*   **Formatting**: see [guide#formatting](guide.ja.md#formatting)
+* **Formatting**: see [guide#formatting](guide.ja.md#formatting)
     <a id="formatting"></a>
 
-*   **Line Length**: see [guide#line-length](guide.ja.md#line-length)
+* **Line Length**: see [guide#line-length](guide.ja.md#line-length)
     <a id="line-length"></a>
 
 <a id="naming"></a>
@@ -45,12 +45,12 @@ Go Styleのドキュメント一式は [Overview](index.ja.md#about) をご覧�
 
 ### Underscores
 
-Goの名前は、一般的にアンダースコアを含んではいけません。
+Go の名前は、一般的にアンダースコアを含んではいけません。
 この原則には3つの例外があります：
 
 1. 生成されたコードによってのみインポートされるパッケージ名には、アンダースコアが含まれる場合があります。
    複数単語のパッケージ名の選び方についての詳細は、[package names](#package-names) を参照してください。
-2. `*_test.go` ファイル内のT est、Benchmark、Example 関数名にはアンダースコアが含まれる場合があります。
+2. `*_test.go` ファイル内の Test、Benchmark、Example 関数名にはアンダースコアが含まれる場合があります。
 3. オペレーティングシステムや cgo と相互運用する低レベルのライブラリは、[`syscall`] で行われているように、識別子を再利用することができます。これは、ほとんどのコードベースでは非常にまれであると予想されます。
 
 [`syscall`]: https://pkg.go.dev/syscall#pkg-constants
@@ -61,15 +61,15 @@ Goの名前は、一般的にアンダースコアを含んではいけません
 
 <a id="TOC-PackageNames"></a>
 
-Goのパッケージ名は短く、小文字のみを使用します。
+Go のパッケージ名は短く、小文字のみを使用します。
 複数の単語からなるパッケージ名は、すべて小文字で切れ目を入れないようにします。
-例えば、パッケージ [`tabwriter`] は `tabWriter`, `TabWriter` で, `tab_writer` という名前ではありません。
+例えば、パッケージ [`tabwriter`] は `tabWriter` や `TabWriter`, `tab_writer` という名前ではありません。
 
-よく使われるローカル変数名によって[shadowed]になってしまうようなパッケージ名は選ばないようにしましょう。
-例えば、`count`はよく使われる変数名なので、`usercount`は`count`より良いパッケージ名です。
+よく使われるローカル変数名によって [shadowed] になってしまうようなパッケージ名は選ばないようにしましょう。
+例えば、`count` はよく使われる変数名なので、`usercount` は `count` より良いパッケージ名です。
 
-Goのパッケージ名にはアンダースコアが付いてはいけません。
-名前にアンダースコアが含まれているパッケージをインポートする必要がある場合（通常は生成されたコードやサードパーティのコードから）、インポート時にGoコードで使用するのに適した名前に変更する必要があります。
+Go のパッケージ名にはアンダースコアが付いてはいけません。
+名前にアンダースコアが含まれているパッケージをインポートする必要がある場合（通常は生成されたコードやサードパーティのコードから）、インポート時に Go コードで使用するのに適した名前に変更する必要があります。
 
 ただし、生成されたコードによってのみインポートされるパッケージ名には、アンダースコアが含まれる場合があります。
 具体的な例としては、以下のようなものがあります：
@@ -78,12 +78,13 @@ Goのパッケージ名にはアンダースコアが付いてはいけません
 * [package-level documentation examples](https://go.dev/blog/examples) (パッケージレベルのドキュメントの例) に `_test` というサフィックスを使用する。
 
 [`tabwriter`]: https://pkg.go.dev/text/tabwriter
-[shadowed]: best-practices#shadowing
+[shadowed]: best-practices.ja.md#shadowing
 
-`util`、`utility`、`common`、`helper`などのような情報量の少ないパッケージ名は避けてください。
+`util`、`utility`、`common`、`helper` などのような情報量の少ないパッケージ名は避けてください。
 いわゆる ["utility packages"](best-practices.ja.md#util-packages) についてもっと詳しく見てください。
 
-インポートされたパッケージの名前が変更された場合 (例: `import foopb "path/to/foo_go_proto"`) 、パッケージのローカル名は上記のルールに従わなければなりません、ローカル名はパッケージ内のシンボルがファイル内でどのように参照されるかを決定します。
+インポートされたパッケージの名前が変更された場合 (例: `import foopb "path/to/foo_go_proto"`) 、パッケージのローカル名は上記のルールに従わなければなりません。
+ローカル名はパッケージ内のシンボルがファイル内でどのように参照されるかを決定します。
 あるインポートが複数のファイル、特に同じパッケージや近くのパッケージで名前が変更された場合、一貫性を保つために可能な限り同じローカル名を使用する必要があります。
 
 <!--#include file="/go/g3doc/style/includes/special-name-exception.md"-->
@@ -96,7 +97,7 @@ Goのパッケージ名にはアンダースコアが付いてはいけません
 
 <a id="TOC-ReceiverNames"></a>
 
-[Receiver] 変数名は必ず：
+[Receiver] (レシーバー) 名は必ず：
 
 * 短い（通常1～2文字程度の長さのもの）
 * タイプ自体の略称
@@ -131,10 +132,10 @@ const (
 )
 ```
 
-[MixedCaps]: guide#mixed-caps
+[MixedCaps]: guide.ja.md#mixed-caps
 [Exported]: https://tour.golang.org/basics/3
 
-MixedCapsでない定数名や接頭辞が `K` の定数は使用しないでください。
+MixedCaps でない定数名や接頭辞が `K` の定数は使用しないでください。
 
 ```go
 // Bad:
@@ -164,12 +165,13 @@ const (
 
 <a id="TOC-Initialisms"></a>
 
-イニシャリズムや頭字語である名前の単語（例：`URL`と`NATO`）は同じ大文字と小文字を使用する必要があります。
+イニシャリズムや頭字語である名前の単語（例：`URL` と `NATO`）は同じ大文字と小文字を使用する必要があります。
 `URL` は `URL` または `url` (`urlPony` や `URLPony` のように) と表記し、決して `Url` と表記してはいけません。
-これは、`ID`が「識別子」の略である場合にも当てはまり、`appId` の代わりに `appID` と記述します。
+これは、`ID` が「識別子」の略である場合にも当てはまり、`appId` の代わりに `appID` と記述します。
 
-* 複数の頭文字を持つ名前（例：`XML` と `API` を含むので `XMLAPI` ）では、与えられた頭文字内の各文字は同じケースを持つべきであるが、名前内の各頭文字は同じケースである必要はない。
-* 小文字の頭文字を含む名前(例: `DDoS`、`iOS`、`gRPC`)では、[exportedness]のために最初の文字を変更する必要がない限り、頭文字は通常の散文と同じように表示すべきです。このような場合は、頭文字全体を同じケースにする必要があります（例：`ddos`、`IOS`、`GRPC`）。
+* 複数の頭文字を持つ名前（例：`XML` と `API` を含むので `XMLAPI` ）では、与えられた頭文字内の各文字は同じケースを持つべきですが、名前内の各頭文字は同じケースである必要はありません。
+* 小文字の頭文字を含む名前(例: `DDoS`、`iOS`、`gRPC`)では、[exportedness] のために最初の文字を変更する必要がない限り、頭文字は通常の散文と同じように表示すべきです。
+  このような場合は、頭文字全体を同じケースにする必要があります（例：`ddos`、`IOS`、`GRPC`）。
 
 [exportedness]: https://golang.org/ref/spec#Exported_identifiers
 
@@ -195,9 +197,9 @@ DDoS          | Unexported | `ddos`   | `dDoS`, `dDOS`
 <a id="TOC-Getters"></a>
 
 関数やメソッドの名前には、基本的な概念で "get" という単語が使われていない限り、接頭辞として `Get` や `get` を使用すべきではありません（例：HTTP GET）。
-例えば、`GetCounts`よりも`Counts`を使用するように、名詞を直接名前にすることをお勧めします。
+例えば、`GetCounts` よりも `Counts` を使用するように、名詞を直接名前にすることをお勧めします。
 
-もしその関数が複雑な計算を行ったり、リモートコールを実行したりする場合は、`Get`の代わりに`Compute`や`Fetch`といった別の単語を使い、その関数呼び出しに時間がかかり、ブロックや失敗する可能性があることを読者に明らかにすることができます。
+もしその関数が複雑な計算を行ったり、リモートコールを実行したりする場合は、`Get` の代わりに `Compute` や `Fetch` といった別の単語を使い、その関数呼び出しに時間がかかり、ブロックや失敗する可能性があることを読者に明らかにすることができます。
 
 <!--#include file="/go/g3doc/style/includes/special-name-exception.md"-->
 
