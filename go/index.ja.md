@@ -6,6 +6,8 @@ https://google.github.io/styleguide/go
 
 [Overview](index.ja.md) | [Style Guide](guide.ja.md) | [Style Decisions](decisions.ja.md) | [Best practices](best-practices.ja.md)
 
+{% raw %}
+
 <a id="about"></a>
 
 ## About
@@ -141,3 +143,5 @@ Goの可読性プロセスの参加者は、これらのリソースに精通し
 * [Esmerelda's Imagination](https://commandcenter.blogspot.com/2011/12/esmereldas-imagination.html)
 * [Regular expressions for parsing](https://commandcenter.blogspot.com/2011/08/regular-expressions-in-lexing-and.html)
 * [Gofmt's style is no one's favorite, yet Gofmt is everyone's favorite](https://www.youtube.com/watch?v=PAAkCSZUG1c&t=8m43s) (YouTube)
+
+{% endraw %}

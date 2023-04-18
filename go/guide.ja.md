@@ -6,6 +6,8 @@ https://google.github.io/styleguide/go/guide
 
 [Overview](index.ja.md) | [Style Guide](guide.ja.md) | [Style Decisions](decisions.ja.md) | [Best practices](best-practices.ja.md)
 
+{% raw %}
+
 **Note:** これは、Googleにおける [Go Style](index.ja.md) の概要を説明する一連のドキュメントの一部です。
 この文書は **[normative](index.ja.md#normative) と [canonical](index.ja.md#canonical)** です。
 詳しくは [the overview](index.ja.md#about) を参照してください。
@@ -358,3 +360,5 @@ Goでは、他の多くの言語よりも名前がやや短くなる傾向があ
 
 変更によって既存のスタイルの逸脱が悪化したり、より多くのAPIサーフェスで露出したり、逸脱が存在するファイルの数が増えたり、実際のバグが発生したりする場合は、ローカルな一貫性は、新しいコードでスタイルガイドに違反する正当な理由とはならなくなる。
 このような場合、作者は同じCLで既存のコードベースをクリーンアップするか、現在のCLより先にリファクタリングを行うか、少なくともローカルな問題を悪化させない代替案を見つけることが適切である。
+
+{% endraw %}

@@ -6,6 +6,8 @@ https://google.github.io/styleguide/go/decisions
 
 [Overview](index.ja.md) | [Style Guide](guide.ja.md) | [Style Decisions](decisions.ja.md) | [Best practices](best-practices.ja.md)
 
+{% raw %}
+
 **Note:** これは、Googleにおける [Go Style](index.ja.md) の概要を説明する一連のドキュメントの一部です。
 この文書は **[normative](index.ja.md#normative) と [canonical](index.ja.md#canonical)** です。
 詳しくは [the overview](index.ja.md#about) を参照してください。
@@ -3362,3 +3364,5 @@ These are designed to work cohesively with core language features like [composit
 
 [composite declaration best practices]: https://google.github.io/styleguide/go/best-practices#vardeclcomposite
 [initialization best practices]: https://google.github.io/styleguide/go/best-practices#vardeclinitialization
+
+{% endraw %}

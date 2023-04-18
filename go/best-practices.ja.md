@@ -6,6 +6,8 @@ https://google.github.io/styleguide/go/best-practices
 
 [Overview](index.ja.md) | [Style Guide](guide.ja.md) | [Style Decisions](decisions.ja.md) | [Best practices](best-practices.ja.md)
 
+{% raw %}
+
 **Note:** これは、Googleにおける [Go Style](index.ja.md) の概要を説明する一連のドキュメントの一部です。
 この文書は **[normative](index.ja.md#normative) と [canonical](index.ja.md#canonical)** です。
 詳しくは [the overview](index.ja.md#about) を参照してください。
@@ -3020,3 +3022,5 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
 
 * [Go Tip #36: Enclosing Package-Level State](index.ja.md#gotip)
 * [Go Tip #80: Dependency Injection Principles](index.ja.md#gotip)
+
+{% endraw %}
