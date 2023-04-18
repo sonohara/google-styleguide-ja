@@ -409,9 +409,9 @@ func TestProcessor(t *testing.T) {
 
 **Note:**
 この説明では、*stomping* と *shadowing* という2つの非公式な用語を使っています。
-これらは、Go言語仕様の公式な概念ではありません。
+これらは、Go 言語仕様の公式な概念ではありません。
 
-多くのプログラミング言語と同様に、Goにはミュータブル変数があり、変数に代入するとその値が変化します。
+多くのプログラミング言語と同様に、Go にはミュータブル変数があり、変数に代入するとその値が変化します。
 
 ```go
 // Good:
@@ -423,7 +423,7 @@ func abs(i int) int {
 }
 ```
 
-[short variable declarations] (短い変数宣言) を `:=` 演算子で使用した場合、新しい変数が作成されないケースがあります。
+[短い変数宣言](https://go.dev/ref/spec#Short_variable_declarations) を `:=` 演算子で使用した場合、新しい変数が作成されないケースがあります。
 これを *stomping* と呼んでいます。元の値が不要になったときに行うので問題ありません。
 
 ```go
@@ -498,16 +498,14 @@ func LongFunction() {
 }
 ```
 
-[short variable declarations]: https://go.dev/ref/spec#Short_variable_declarations
-
 <a id="util-packages"></a>
 
 ### Util packages
 
-Goのパッケージは、インポートパスとは別に、`package` 宣言で名前を指定します。
+Go のパッケージは、インポートパスとは別に、`package` 宣言で名前を指定します。
 パッケージ名は、パスよりも読みやすさを重視したものです。
 
-Goのパッケージ名は [パッケージが提供するものに関連したもの](decisions.ja.md#package-names) であるべきです。
+Go のパッケージ名は [パッケージが提供するものに関連したもの](decisions.ja.md#package-names) であるべきです。
 パッケージの名前を `util`, `helper`, `common` などとするのは、通常良くない選択です（名前の *一部* として使用することはできます）。
 情報量の少ない名前はコードを読みにくくしますし、あまりに広範に使用すると、不必要な [import conflict](decations.ja.md#import-renaming) を引き起こす可能性があります。
 
@@ -522,7 +520,7 @@ _, err := f.Seek(0, io.SeekStart)
 b := elliptic.Marshal(curve, x, y)
 ```
 
-importsのリスト（`cloud.google.com/go/spanner/spanertest`、`io`、`crypto/elliptic`）を知らなくても、それぞれが何をするかは大体わかると思います。
+imports のリスト（`cloud.google.com/go/spanner/spanertest`、`io`、`crypto/elliptic`）を知らなくても、それぞれが何をするかは大体わかると思います。
 あまり重視しない名前にすると、以下のようになります：
 
 ```go
@@ -538,7 +536,7 @@ b := helper.Marshal(curve, x, y)
 
 ## Package size
 
-Goパッケージの大きさをどうするか、関連する型を同じパッケージに入れるか、それとも別のパッケージに分けるか、といったことを考えるなら、[Go blog post about package names] [blog-pkg-names] から始めるとよいでしょう。
+Go パッケージの大きさをどうするか、関連する型を同じパッケージに入れるか、それとも別のパッケージに分けるか、といったことを考えるなら、[Go blog post about package names] から始めるとよいでしょう。
 記事のタイトルとは裏腹に、この記事は命名についてのみ書かれているわけではありません。
 この記事には役に立つヒントがいくつか含まれており、役に立つ記事や講演をいくつか引用しています。
 
@@ -553,14 +551,14 @@ Goパッケージの大きさをどうするか、関連する型を同じパッ
 
 とはいえ、プロジェクト全体を1つのパッケージに入れてしまうと、パッケージが大きくなりすぎてしまう可能性があります。
 概念的に異なるものには、それ専用の小さなパッケージを与えることで、使いやすくなります。
-クライアントが知っているパッケージの短い名前と、エクスポートされた型名が一緒になって、意味のある識別子を作ります：例えば `bytes.Buffer` や `ring.New` などです。[blog post] [blog-pkg-names] に詳しい例があります。
+クライアントが知っているパッケージの短い名前と、エクスポートされた型名が一緒になって、意味のある識別子を作ります：例えば `bytes.Buffer` や `ring.New` などです。[Go blog post about package names] に詳しい例があります。
 
 Go スタイルはファイルサイズに柔軟性があります。なぜなら、メンテナは呼び出し元に影響を与えることなく、パッケージ内のコードをあるファイルから別のファイルに移動することができるからです。
 しかし、一般的なガイドラインとして、1つのファイルに何千行もあるようなファイルや、小さなファイルをたくさん持つことは、通常良いことではありません。
 他の言語のように「一種類、一ファイル」という決まりはありません。
 経験則から言えば、ファイルは、メンテナがどのファイルが何かを含んでいるか分かる程度に集約されるべきで、ファイルは、いったんそこにあれば簡単に見つけられる程度に小さくあるべきでしょう。
 標準ライブラリでは、大きなパッケージをいくつかのソースファイルに分割し、関連するコードをファイルごとにグループ化することがよくあります。[package `bytes`] のソースはその良い例です。
-長いパッケージのドキュメントを持つパッケージでは、`doc.go`という1つのファイルに [package documentation](decisions.ja.md#package-comments) (パッケージドキュメント) とパッケージ宣言、それ以外を記述することもできますが、これは必須ではありません。
+長いパッケージのドキュメントを持つパッケージでは、`doc.go`という1つのファイルに [パッケージドキュメント](decisions.ja.md#package-comments)とパッケージ宣言、それ以外を記述することもできますが、これは必須ではありません。
 
 Google のコードベースや Bazel を使用したプロジェクトでは、Go コードのディレクトリレイアウトはオープンソースの Go プロジェクトとは異なります：1つのディレクトリに複数の `go_library` ターゲットを持つことができます。
 複数の `go_library` ターゲットを一つのディレクトリに置くことができます。将来的にプロジェクトをオープンソース化することを想定している場合は、各パッケージに独自のディレクトリを与えるのがよいでしょう。
@@ -569,7 +567,7 @@ Google のコードベースや Bazel を使用したプロジェクトでは、
 
 * [Test double packages](#naming-doubles)
 
-[blog-pkg-names]: https://go.dev/blog/package-names
+[Go blog post about package names]: https://go.dev/blog/package-names
 [package `bytes`]: https://go.dev/src/bytes/
 [godoc]: https://pkg.go.dev/
 
@@ -624,7 +622,7 @@ import (
 Import は通常、以下の2つ（またはそれ以上）のブロックに順番に分類されます：
 
 1. 標準ライブラリのインポート (例: `"fmt"`)
-2. インポート (例: "/path/to/somelib")
+2. インポート (例: `"/path/to/somelib"`)
 3. (オプション) Protobufのインポート (例: `fpb "path/to/foo_go_proto"`)
 4. (オプション) 副作用のインポート (例: `_ "path/to/package"`)
 
@@ -637,7 +635,7 @@ Import は通常、以下の2つ（またはそれ以上）のブロックに順
 > 2つの必須グループ（標準ライブラリ用のグループとその他のすべてのインポート用のグループ）だけを維持するコードでは、`goimports` ツールはこのガイダンスに沿った出力を生成します。
 >
 > しかし、`goimports` は必須グループ以外のグループについての知識はなく、オプションのグループはツールによって無効化されがちです。
-> オプションのグループを使用する場合、著者とレビューアの双方が、グループ分けを遵守するように注意を払う必要があります。
+> オプションのグループを使用する場合、実装者とレビューアの双方が、グループ分けを遵守するように注意を払う必要があります。
 >
 > どちらの方法でも構いませんが、インポートセクションを一貫性のない、部分的にグループ化された状態のままにしておかないようにしてください。
 
@@ -652,7 +650,7 @@ Goでは、[errors are values] (エラーは値) であり、コードによっ�
 * メンテナに使用される
 * エンドユーザーによって解釈される
 
-また、エラーメッセージは、ログメッセージ、エラーダンプ、レンダリングされたUIなど、さまざまな異なる場所で表示されます。
+また、エラーメッセージは、ログメッセージ、エラーダンプ、レンダリングされた UI など、さまざまな異なる場所で表示されます。
 
 エラーを処理する（生成または消費する）コードは、意図的に行う必要があります。
 エラーの返り値を無視したり、やみくもに伝えたりしたくなることがあります。
@@ -661,7 +659,7 @@ Goでは、[errors are values] (エラーは値) であり、コードによっ�
 あなたの判断で、以下のことを心に留めておいてください：
 
 * エラー値を作成する際に、何らかの [structure](#error-structure) を持たせるかどうかを決定します。
-* エラーを処理する際には、自分にはあるが呼び出し側や着信側が知らないかもしれない情報を [adding information](#error-extra-info) (追加) ことを考慮する。
+* エラーを処理する際には、自分にはあるが呼び出し側や着信側が知らないかもしれない情報を[追加する](#error-extra-info)ことを考慮する。
 * [error logging](#error-logging) に関するガイダンスも参照してください。
 
 通常、エラーを無視することは適切ではありませんが、関連するオペレーションをオーケストレーションする場合は、最初のエラーだけが有用であることが多いので、妥当な例外となります。
@@ -684,7 +682,7 @@ Goでは、[errors are values] (エラーは値) であり、コードによっ�
 
 ### Error structure
 
-呼び出し元がエラーを調べる必要がある場合（たとえば、異なるエラー状態を区別する）、呼び出し元が文字列の照合を行うのではなく、プログラムによってこれを行うことができるように、エラー値の構造を与えてください。
+呼び出し元がエラーを調べる必要がある場合（たとえば、異なるエラー状態を区別する必要がある場合）、呼び出し元が文字列の照合を行うのではなく、プログラムによってこれを行うことができるように、エラー値の構造を与えてください。
 このアドバイスは、実運用コードだけでなく、さまざまなエラー状態を気にするテストにも適用されます。
 
 最も単純な構造化エラーは、パラメータ化されていないグローバル値です。
@@ -730,7 +728,7 @@ func handlePet(...) {
 }
 ```
 
-上記ではセンチネル値を使用しており、誤差は期待値と等しくなければなりません（`==` という意味で）。
+上記では sentinel values を使用しており、誤差は期待値と等しくなければなりません（`==` という意味で）。
 これは多くの場合、完全に適切です。
 もし `process` がラップされたエラーを返す場合（後述）、[`errors.Is`] を使用することができます。
 
@@ -747,7 +745,7 @@ func handlePet(...) {
 ```
 
 文字列の形からエラーを区別しようとしないでください。
- (詳しくは [Go Tip #13: Designing Errors for Checking](index.ja.md#gotip) を参照してください)。
+(詳しくは [Go Tip #13: Designing Errors for Checking](index.ja.md#gotip) を参照してください)。
 
 ```go
 // Bad:
@@ -762,12 +760,11 @@ func handlePet(...) {
 例えば、[`os.PathError`] 型は、失敗した操作のパス名を呼び出し元が簡単にアクセスできる構造体フィールドに配置するように文書化されています。
 
 例えば、エラーコードと詳細文字列を含むプロジェクト構造体のように、他のエラー構造を適切に使用することができます。
-[Package `status`] [status] は一般的なカプセル化です。この方法を選択する場合 (そうする義務はありません)、 [canonical codes] を使用してください。
+[Package `status`](https://pkg.go.dev/google.golang.org/grpc/status) は一般的なカプセル化です。この方法を選択する場合 (そうする義務はありません)、 [canonical codes] を使用してください。
 ステータスコードを使うのが正しい選択かどうかは、[Go Tip #89: When to Use Canonical Status Codes as Errors](index.ja.md#gotip) を参照してください。
 
 [`os.PathError`]: https://pkg.go.dev/os#PathError
 [`errors.Is`]: https://pkg.go.dev/errors#Is
-[status]: https://pkg.go.dev/google.golang.org/grpc/status
 [canonical codes]: https://pkg.go.dev/google.golang.org/grpc/codes
 
 <a id="error-extra-info"></a>
@@ -826,15 +823,15 @@ if err := os.Open("settings.txt"); err != nil {
 ```
 
 伝播されたエラーに情報を追加する場合、エラーをラップするか、新しいエラーを提示するかのどちらかになります。
-fmt.Errorf`の`%w`動詞でエラーをラップすると、呼び出し元が元のエラーのデータにアクセスすることができます。
+`fmt.Errorf` の `%w` 動詞でエラーをラップすると、呼び出し元が元のエラーのデータにアクセスすることができます。
 これは時に非常に便利ですが、他のケースでは、これらの詳細は呼び出し側にとって誤解を招いたり、興味がなかったりします。
 詳しくは、[blog post on error wrapping](https://blog.golang.org/go1.13-errors) をご覧ください。
 また、エラーをラップすることで、パッケージのAPI表面を明白でない方法で拡張することになり、パッケージの実装の詳細を変更した場合に破損の原因となることがあります。
 
-公開するエラーの根底にあるものを文書化し、それを検証するテストがない限り、 `%w` の使用は避けた方がよいでしょう。
+公開するエラーの根底にあるものを文書化し、それを検証するテストがない限り、`%w` の使用は避けた方がよいでしょう。
 呼び出し元が `errors.Unwrap` や `errors.Is` などを呼び出すことを想定していない場合は、わざわざ `%w` を使用しなくてもよいでしょう。
 
-同じコンセプトが [`*status.Status`] [status] のような [structured errors](#error-structure) にも適用されます ([canonical codes] 参照)。
+同じコンセプトが [`*status.Status`](https://pkg.go.dev/google.golang.org/grpc/status) のような [structured errors](#error-structure) にも適用されます ([canonical codes] 参照)。
 例えば、サーバがバックエンドに不正なリクエストを送り、 `InvalidArgument` コードを受け取った場合、クライアントが何も悪いことをしていないと仮定して、このコードをクライアントに伝えるべきでは *ありません*。
 その代わりに、`Internal` という正規のコードをクライアントに返します。
 
@@ -887,7 +884,7 @@ func (*FortuneTeller) SuggestFortune(context.Context, *pb.SuggestionRequest) (*p
 
 エラー文字列の末尾に `%w` を置くことを推奨します。
 
-エラーは [the `%w` verb](https://blog.golang.org/go1.13-errors) (`%w` 動詞) でラップするか、`Unwrap() error` (例: [`fs.PathError`](https://pkg.go.dev/io/fs#PathError) ) を実装した [structured error](index.ja.md#gotip) に格納することが可能です。
+エラーは [`%w` 動詞](https://blog.golang.org/go1.13-errors)でラップするか、`Unwrap() error` を実装した [structured error](index.ja.md#gotip) に格納することが可能です(例: [`fs.PathError`](https://pkg.go.dev/io/fs#PathError) )。
 
 ラップされたエラーはエラーチェーンを形成します。ラップの新しいレイヤーが増えるごとに、エラーチェーンの先頭に新しいエントリーが追加されます。
 エラーチェーンは `Unwrap() error` メソッドでたどることができます。
@@ -899,7 +896,7 @@ err2 := fmt.Errorf("err2: %w", err1)
 err3 := fmt.Errorf("err3: %w", err2)
 ```
 
-エラーチェーンが形成されます、
+エラーチェーンが形成されます。
 
 ```mermaid
 flowchart LR
@@ -907,7 +904,7 @@ flowchart LR
   err2 == err2 wraps err1 ==> err1;
 ```
 
-`w` 動詞をどこに配置しても、返されるエラーは常にエラーチェーンの先頭を表し、`%w` はその次の子です。
+`%w` 動詞をどこに配置しても、返されるエラーは常にエラーチェーンの先頭を表し、`%w` はその次の子です。
 同様に、`Unwrap() error` は常にエラーチェーンを新しいものから古いものへと走査します。
 
 しかし、`%w` 動詞の配置は、エラーチェインを新しいものから古いものへ、古いものから新しいものへ、またはそのどちらでもなく表示するかに影響します：
@@ -949,11 +946,11 @@ fmt.Println(err3) // err3-1 err2-1 err1 err2-2 err3-2
 関数では、呼び出し元にエラーを伝えず、外部のシステムにエラーを伝える必要がある場合があります。
 このような場合、ログを記録するのが一般的ですが、何をどのように記録するかには注意が必要です。
 
-* Like [good test failure messages], log messages should clearly express what went wrong and help the maintainer by including relevant information to diagnose the problem.
+* [良いテスト失敗メッセージ](decisions.ja.md#useful-test-failures)と同様に、ログメッセージは何が問題だったのかを明確に表現し、問題を診断するための関連情報を含めることで、メンテナを助けるものでなければなりません。
 
 * 重複を避ける。エラーを返した場合、通常は自分でログを取らず、呼び出し元に処理させる方が良いでしょう。
   呼び出し側は、エラーをログに記録するか、あるいは [`rate.Sometimes`] を使用してロギングを制限するかを選択することができます。
-  その他、リカバリーを試みる、あるいは [stopping the program] (プログラムを停止する) という選択肢もあります。
+  その他、リカバリーを試みる、あるいは [プログラムを停止する](#checks-and-panics) という選択肢もあります。
   いずれにせよ、発信者にコントロールを与えることで、ログスパムを回避することができます。
   
   しかし、この方法の欠点は、すべてのログが呼び出し側のラインコーディネートに基づいて記述されることです。
@@ -968,8 +965,6 @@ fmt.Println(err3) // err3-1 err2-1 err1 err2-2 err3-2
 * Google 内部では、ログファイルに書き込んで誰かが気づいてくれるのを期待するよりも、より効果的な警告を発するように設定できる監視システムがあります。
   これは、標準ライブラリ [package `expvar`] と似ていますが、同じではありません。
 
-[good test failure messages]: decisions.ja.md#useful-test-failures
-[stopping the program]: #checks-and-panics
 [`rate.Sometimes`]: https://pkg.go.dev/golang.org/x/time/rate#Sometimes
 [PII]: https://en.wikipedia.org/wiki/Personal_data
 [package `expvar`]: https://pkg.go.dev/expvar
@@ -988,7 +983,7 @@ fmt.Println(err3) // err3-1 err2-1 err1 err2-2 err3-2
 * `V(3)`の大きな内部状態をダンプする。
 
 詳細なロギングのコストを最小化するために、`log.V` がオフになっているときでも、誤って高価な関数を呼び出さないようにする必要があります。
-`log.V` は2つのAPIを提供しています。
+`log.V` は2つの API を提供しています。
 より便利な方は、この偶発的な出費のリスクを伴います。
 疑問がある場合は、少し冗長な方のスタイルを使用してください。
 
@@ -1022,7 +1017,7 @@ log.V(2).Infof("Handling %v", sql.Explain())
 
 ### Program checks and panics
 
-[decision against panics] (パニックに対する決定) で述べたように、標準的なエラー処理は、エラー返り値を中心に構成されるべきです。
+[パニックに対する決定](decisions.ja.md#dont-panic)で述べたように、標準的なエラー処理は、エラー返り値を中心に構成されるべきです。
 ライブラリは、特に一過性のエラーの場合、プログラムを中断するよりも、呼び出し元にエラーを返すことを優先すべきです。
 
 不変量に対して整合性チェックを行い、違反した場合はプログラムを終了させる必要がある場合があります。
@@ -1041,7 +1036,6 @@ Google のコードベースでこれを行う最も確実な方法は、 `log.F
 他の言語のアプリケーションサーバーのサーバーログをサンプリングすると、処理されないまま放置されている大きなスタックトレースが見つかることがよくあります。
 あなたのサーバーでは、この落とし穴を避けてください。
 
-[decision against panics]: decisions.ja.md#dont-panic
 [`net/http` server]: https://pkg.go.dev/net/http#Server
 
 <a id="when-to-panic"></a>
@@ -1049,7 +1043,7 @@ Google のコードベースでこれを行う最も確実な方法は、 `log.F
 ### When to panic
 
 標準ライブラリはAPIの誤用に対してパニックを起こします。
-例えば、[`reflect`]は、値が誤って解釈されたことを示唆するような方法でアクセスされた多くのケースでパニックを発生させます。
+例えば、[`reflect`] は、値が誤って解釈されたことを示唆するような方法でアクセスされた多くのケースでパニックを発生させます。
 これは、境界を越えたスライスの要素にアクセスするようなコア言語のバグに対するパニックと類似しています。
 コードレビューとテストによって、このようなバグが発見されるべきです。このようなバグは、実運用コードに現れないことを期待されています。
 標準ライブラリは、Googleコードベースが使用している [levelled `log`] パッケージにアクセスできないため、これらのパニックは、ライブラリに依存しない不変性チェックとして機能します。
@@ -1062,7 +1056,7 @@ Google のコードベースでこれを行う最も確実な方法は、 `log.F
 この設計の重要な特徴は、これらのパニックがパッケージの境界を越えてエスケープすることを決して許さず、パッケージのAPIの一部を形成しないことです。
 これは、伝播するパニックをパブリックAPI表面で返されるエラーに変換するトップレベルの遅延回復で通常達成されます。
 
-パニックは、コンパイラが到達不可能なコードを特定できない場合にも使用されます。例えば、`log.Fatal`のような戻り値のない関数を使用した場合などです：
+パニックは、コンパイラが到達不可能なコードを特定できない場合にも使用されます。例えば、`log.Fatal` のような戻り値のない関数を使用した場合などです：
 
 ```go
 // Good:
@@ -1090,7 +1084,7 @@ func answer(i int) string {
 
 ### Conventions
 
-このセクションは、決定文書の[commentary]セクションを補強するものです。
+このセクションは、決定文書の [commentary] セクションを補強するものです。
 
 使い慣れたスタイルで文書化されたGoコードは、誤った文書化されたものや全く文書化されていないものよりも読みやすく、誤用される可能性も低くなります。
 実行可能な [examples] は Godoc や Code Search に表示され、あなたのコードの使い方を説明するのに優れた方法です。
@@ -1222,7 +1216,7 @@ func (Worker) Run(ctx context.Context) error
 
 #### Concurrency
 
-Goのユーザーは、概念的に読み取り専用の操作は同時並行で使用しても安全であり、余分な同期を必要としないと考えています。
+Go のユーザーは、概念的に読み取り専用の操作は同時並行で使用しても安全であり、余分な同期を必要としないと考えています。
 
 このGodocでは、同時実行に関する不要な発言は安全に削除することができます：
 
@@ -1262,7 +1256,7 @@ func (*Buffer) Grow(n int)
     Why? A cache hit when looking up the key mutate a LRU cache internally. How
     this is implemented may not be obvious to all readers.
 
-* 同期がAPIで提供される場合
+* 同期が API で提供される場合
 
     ```go
     // Good:
@@ -1276,9 +1270,9 @@ func (*Buffer) Grow(n int)
     なぜか？Stubby は同期を提供します。
 
     **Note:**
-    APIが型であり、APIが全体として同期を提供する場合、通常は型定義のみがセマンティクスを文書化します。
+    API が型であり、API が全体として同期を提供する場合、通常は型定義のみがセマンティクスを文書化します。
 
-* APIはユーザーが実装したタイプのインターフェースを使用し、インターフェースの利用者は特定の並行性要件をもっている場合
+* API はユーザーが実装したタイプのインターフェースを使用し、インターフェースの利用者は特定の並行性要件をもっている場合
 
     ```go
     // Good:
@@ -1304,8 +1298,8 @@ func (*Buffer) Grow(n int)
 
 #### Cleanup
 
-APIが持つ明示的なクリーンアップ要件を文書化しましょう。
-そうしないと、呼び出し元がAPIを正しく使用できず、リソースリークやその他のバグが発生する可能性があります。
+API が持つ明示的なクリーンアップ要件を文書化しましょう。
+そうしないと、呼び出し元が API を正しく使用できず、リソースリークやその他のバグが発生する可能性があります。
 
 呼び出し側に任されているクリーンアップを呼び出します：
 
@@ -1363,7 +1357,7 @@ Go は [documentation server](https://pkg.go.dev/golang.org/x/pkgsite/cmd/pkgsit
     // See some/shortlink for config file format details.
     ```
 
-* テストファイルには、godocの対応するドキュメントに添付されて表示される [runnable examples] (実行可能なサンプル) を含めることができます：
+* テストファイルには、godocの対応するドキュメントに添付されて表示される [実行可能なサンプル](decisions.ja.md#examples)を含めることができます：
 
     ```go
     // Good:
@@ -1420,7 +1414,6 @@ Go は [documentation server](https://pkg.go.dev/golang.org/x/pkgsite/cmd/pkgsit
 
 [Godoc]: https://pkg.go.dev/
 [format documentation]: https://go.dev/doc/comment
-[runnable examples]: decisions#examples
 
 <a id="signal-boost"></a>
 
@@ -1479,7 +1472,7 @@ var i = 42
 
 ### Non-pointer zero values
 
-以下の宣言では、[zero value] (ゼロ値) を使用しています：
+以下の宣言では、[ゼロ値](https://golang.org/ref/spec#The_zero_value)を使用しています：
 
 ```go
 // Good:
@@ -1489,8 +1482,6 @@ var (
     primes []int
 )
 ```
-
-[zero value]: https://golang.org/ref/spec#The_zero_value
 
 ゼロ値を使って値を宣言するのは、**後で使用できるように準備された空の値を伝えたいときです**。
 明示的な初期化で複合リテラルを使用すると、不便になることがあります：
@@ -1512,7 +1503,7 @@ var coords Point
 if err := json.Unmarshal(data, &coords); err != nil {
 ```
 
-構造体の中にロックや [must not be copied](decision.ja.md#copying) (コピーしてはいけない) フィールドが必要な場合、それを値型にしてゼロ値初期化の利点を生かすことができます。
+構造体の中にロックや [コピーしてはいけない](decision.ja.md#copying)フィールドが必要な場合、それを値型にしてゼロ値初期化の利点を生かすことができます。
 構造体が含む型は、値ではなくポインタを介して渡さなければならなくなります。
 その型に対するメソッドは、ポインタのレシーバーを取らなければなりません。
 
@@ -1563,13 +1554,13 @@ var myMsg = pb.Bar{}
 > Map 型は、変更する前に明示的に初期化する必要があります。
 > ただし、ゼロ値mapからの読み出しは全く問題ありません。
 >
-> マップ型やスライス型の場合、特にパフォーマンスに気を使うコードで、事前にサイズがわかっている場合は、[size hints](#vardeclsize) (サイズのヒント) の項目を参照してください。
+> マップ型やスライス型の場合、特にパフォーマンスに気を使うコードで、事前にサイズがわかっている場合は、[サイズのヒント](#vardeclsize)の項目を参照してください。
 
 <a id="vardeclcomposite"></a>
 
 ### Composite literals
 
-以下は、[composite literal] (複合リテラル) 宣言です：
+以下は、[複合リテラル](https://golang.org/ref/spec#Composite_literals)宣言です：
 
 ```go
 // Good:
@@ -1583,7 +1574,7 @@ var (
 
 初期要素やメンバがわかっている場合は、複合リテラルを使って値を宣言すべきです。
 
-一方、複合リテラルを使って空やメンバーレスの値を宣言すると、[zero-value initialization](#vardeclzero) (ゼロ値初期化) と比べて視覚的にうるさくなることがあります。
+一方、複合リテラルを使って空やメンバーレスの値を宣言すると、[ゼロ値初期化](#vardeclzero)と比べて視覚的にうるさくなることがあります。
 
 ゼロ値へのポインタが必要な場合、空の複合リテラルと `new` という2つのオプションがあります。
 どちらも問題ありませんが、`new`キーワードは、ゼロでない値が必要な場合、複合リテラルは使えないということを読者に気づかせる役割を果たします：
@@ -1595,8 +1586,6 @@ var (
   msg = new(pb.Message) // non-empty proto messages are initialized with builders or by setting fields one by one.
 )
 ```
-
-[composite literal]: https://golang.org/ref/spec#Composite_literals
 
 <a id="vardeclsize"></a>
 
@@ -1623,7 +1612,7 @@ var (
 
 **Warning:**
 必要以上のメモリをあらかじめ割り当てておくと、フリート内のメモリが無駄になったり、パフォーマンスに悪影響を及ぼすこともあります。
-迷ったら、[GoTip #3: Benchmarking Go Code] を参照して、[zero initialization](#vardeclzero) (ゼロ初期化) または [composite literal declaration](#vardeclcomposite) (複合リテラル宣言) をデフォルトにしてください。
+迷ったら、[GoTip #3: Benchmarking Go Code] を参照して、[ゼロ初期化](#vardeclzero) または [複合リテラル宣言](#vardeclcomposite)をデフォルトにしてください。
 
 [GoTip #3: Benchmarking Go Code]: index.ja.md#gotip
 
@@ -1631,7 +1620,7 @@ var (
 
 ### Channel direction
 
-可能な限り [channel direction] (チャンネル方向) を指定してください。
+可能な限り [チャンネル方向](https://go.dev/ref/spec#Channel_types)を指定してください。
 
 ```go
 // Good:
@@ -1660,11 +1649,7 @@ func sum(values chan int) (out int) {
 また、型に対する所有権の尺度を伝えるのにも役立ちます。
 
 Bryan Mills の講演 "Rethinking Classical Concurrency Patterns" も参照してください：
-[slides][rethinking-concurrency-slides] [video][rethinking-concurrency-video].
-
-[rethinking-concurrency-slides]: https://drive.google.com/file/d/1nPdvhB0PutEJzdCq5ms6UI58dp50fcAN/view?usp=sharing
-[rethinking-concurrency-video]: https://www.youtube.com/watch?v=5zXAHh5tJqQ
-[channel direction]: https://go.dev/ref/spec#Channel_types
+[slides](https://drive.google.com/file/d/1nPdvhB0PutEJzdCq5ms6UI58dp50fcAN/view?usp=sharing)、[video](https://www.youtube.com/watch?v=5zXAHh5tJqQ).
 
 <a id="funcargs"></a>
 
@@ -1678,17 +1663,15 @@ Bryan Mills の講演 "Rethinking Classical Concurrency Patterns" も参照し�
 APIを設計する際には、シグネチャが複雑化する高度に設定可能な関数を、より単純な関数に分割することを検討してください。
 必要であれば、これらの関数は（エクスポートされていない）実装を共有することができます。
 
-関数が多くの入力を必要とする場合、いくつかの引数に [option struct] (オプション構造体) を導入するか、より高度な [variadic options] (可変オプション) 技法を採用することを検討します。
+関数が多くの入力を必要とする場合、いくつかの引数に [オプション構造体](#option-structure)を導入するか、より高度な [可変オプション](#variadic-options)技法を採用することを検討します。
 どの手法を選択するかは、想定されるすべてのユースケースにおいて、関数呼び出しがどのように見えるかを第一に考慮する必要があります。
 
-これらの推奨事項は、主にエクスポートされたAPIに適用され ますがこれらはエクスポートされていないAPIよりも高い水準にあります。
+これらの推奨事項は、主にエクスポートされた API に適用され ますがこれらはエクスポートされていない API よりも高い水準にあります。
 これらのテクニックは、あなたのユースケースには不要かもしれません。あなたの判断で、[clarity] と [least mechanism] の原則のバランスを取ってください。
 
 こちらもご参照ください：
 [Go Tip #24: Use Case-Specific Constructions](index.ja.md#gotip)
 
-[option struct]: #option-structure
-[variadic options]: #variadic-options
 [clarity]: guide.ja.md#clarity
 [least mechanism]: guide.ja.md#least-mechanism
 
@@ -1761,7 +1744,7 @@ func foo(ctx context.Context) {
 
 **Note**: [コンテキストをオプション構造体に含めない](decisions.ja.md#contexts).
 
-このオプションは、以下のいずれかに該当する場合に推奨されることがあります： 1．
+このオプションは、以下のいずれかに該当する場合に推奨されることがあります：
 
 * すべての呼び出し元は、1つ以上のオプションを指定する必要がある。
 * 多くの呼び出し元はが、多くのオプションの提供を必要とする。
@@ -1796,7 +1779,7 @@ func EnableReplication(ctx context.Context, config *placer.Config, primaryCells,
 }
 ```
 
-The example above could be rewritten with variadic options as follows:
+上の例は、variadicオプションを使って次のように書き換えることができます：
 
 ```go
 // Good:
@@ -1927,12 +1910,12 @@ func foo(ctx context.Context) {
   * 余計な機能を必要としないならお勧め。
 
 **Warning**:
-cobraコマンド関数は、`context.Background` で独自のルートコンテキストを作成するのではなく、`cmd.Context()` を使用してコンテキストを取得するようにしましょう。
+cobra コマンド関数は、`context.Background` で独自のルートコンテキストを作成するのではなく、`cmd.Context()` を使用してコンテキストを取得するようにしましょう。
 サブコマンドパッケージを使用するコードは、関数のパラメータとして正しいコンテキストを既に受け取っています。
 
 各サブコマンドを別々のパッケージに配置する必要はありませんし、そうする必要がないこともよくあります。
-パッケージの境界については、他のGoコードベースと同じ考慮事項を適用してください。
-コードがライブラリとバイナリの両方として使用できる場合、CLIコードとライブラリを分離し、CLIをクライアントの1つにすることは、通常有益です。(これはサブコマンドを持つCLIに限ったことではありませんが、よく出てくる場所なのでここで触れておきます)
+パッケージの境界については、他の Go コードベースと同じ考慮事項を適用してください。
+コードがライブラリとバイナリの両方として使用できる場合、CLI コードとライブラリを分離し、CLI をクライアントの1つにすることは、通常有益です。(これはサブコマンドを持つCLIに限ったことではありませんが、よく出てくる場所なのでここで触れておきます)
 
 [subcommands]: https://pkg.go.dev/github.com/google/subcommands
 [cobra]: https://pkg.go.dev/github.com/spf13/cobra
@@ -1950,22 +1933,17 @@ decisions#mark-test-helpers. The point is not to repeat information, but
 to have one place that summarizes the distinction that newcomers to the
 language often wonder about. -->
 
-Goは「テストヘルパー」と「アサーションヘルパー」を区別しています：
+Go は「テストヘルパー」と「アサーションヘルパー」を区別しています：
 
 * **テストヘルパー**は、設定や後始末を行う関数です。
   テストヘルパーで発生するすべての失敗は、（テスト対象のコードではなく）環境の失敗であると予想されます。例えば、このマシンにはもう空きポートがないため、テストデータベースが開始できない場合などです。
-  このような関数の場合、`t.Helper`を呼び出すことで [mark them as a test helper] (テストヘルパーとしてマークする) ことが適切な場合があります。
-  詳しくは、[error handling in test helpers] (テストヘルパーのエラー処理) を参照してください。
+  このような関数の場合、`t.Helper`を呼び出すことで [テストヘルパーとしてマークする](decisions.ja.md#mark-test-helpers)ことが適切な場合があります。
+  詳しくは、[テストヘルパーのエラー処理](#test-helper-error-handling)を参照してください。
 
-* **アサーションヘルパー**とは、システムの正しさをチェックし、期待値が満たされない場合はテストに失敗する関数のことです。アサーションヘルパーは、Goでは [not considered idiomatic] ( 慣用句とみなされない) です。
+* **アサーションヘルパー**とは、システムの正しさをチェックし、期待値が満たされない場合はテストに失敗する関数のことです。アサーションヘルパーは、Go では [慣用句と見做されません](decisions.ja.md#assert)。
 
 テストの目的は、テスト対象のコードの合格/不合格の状態を報告することです。
-テストに失敗する理想的な場所は `Test` 関数の中であり、そうすることで [failure messages] (失敗メッセージ) とテストロジックが明確になるからです。
-
-[mark them as a test helper]: decisions#mark-test-helpers
-[error handling in test helpers]: #test-helper-error-handling
-[not considered idiomatic]: decisions#assert
-[failure messages]: decisions#useful-test-failures
+テストに失敗する理想的な場所は `Test` 関数の中であり、そうすることで [失敗メッセージ](decisions.ja.md#useful-test-failures) () とテストロジックが明確になるからです。
 
 テストコードが大きくなるにつれて、いくつかの機能を別の機能に分解することが必要になることがあります。
 テストコードもコードなので、標準的なソフトウェアエンジニアリングの考慮事項がまだ適用されます。
@@ -1975,9 +1953,9 @@ Goは「テストヘルパー」と「アサーションヘルパー」を区別
 多くの別々のテストケースが同じ検証ロジックを必要とする場合、アサーションヘルパーや複雑な検証関数を使用するのではなく、以下のいずれかの方法でテストをアレンジしてください：
 
 * ロジック（検証と失敗の両方）を `Test` 関数にインライン化します（繰り返しであっても）。これは単純なケースで最も効果的です。
-* 入力が似ている場合は、ループの中でロジックをインライン化したまま、[table-driven test] (テーブル駆動テスト) に統一することを検討してください。これにより、検証や失敗を「テスト」の中に残しながら、繰り返しを避けることができます。
+* 入力が似ている場合は、ループの中でロジックをインライン化したまま、[テーブル駆動テスト](decisions.ja.md#table-driven-tests)に統一することを検討してください。これにより、検証や失敗を「テスト」の中に残しながら、繰り返しを避けることができます。
 * 同じバリデーション機能を必要とする複数の呼び出し元があり、テーブルテストが適切でない場合（典型的には、入力が十分に単純でない、または一連の操作の一部としてバリデーションが必要であるため）、バリデーション関数をアレンジして、 `testing.T` パラメータを受け取ってそれを使用してテストを失敗するのではなく、値（通常は `error` ） を返すようにします。
-  `Test` 内のロジックを使って失敗するかどうかを判断し、[useful test failures] (有用なテスト失敗例) を提供します。
+  `Test` 内のロジックを使って失敗するかどうかを判断し、[有用なテスト失敗例](decisions.ja.md#useful-test-failures)を提供します。
   また、よくある定型的な設定コードを因数分解するテストヘルパーを作成することも可能です。
 
 最後のポイントで説明した設計は、直交性を維持するものです。
@@ -2033,14 +2011,10 @@ func FuzzFencepost(f *testing.F) {
 
 **Note:**
 テストヘルパーと普通のライブラリコードの間には類似性があります。
-ライブラリのコードは、稀な状況を除き、通常は [not panic] (パニックにならない) べきです。
-テストから呼び出されたコードは、[no point in proceeding] (進める意味がない) 場合を除き、テストを停止してはいけません。
+ライブラリのコードは、稀な状況を除き、通常は [パニックにならない](decisions.ja.md#dont-panic)べきです。
+テストから呼び出されたコードは、[進める意味がない](#t-fatal)場合を除き、テストを停止してはいけません。
 
-[table-driven test]: decisions#table-driven-tests
-[useful test failures]: decisions#useful-test-failures
 [package `cmp`]: https://pkg.go.dev/github.com/google/go-cmp/cmp
-[not panic]: decisions#dont-panic
-[no point in proceeding]: #t-fatal
 
 <a id="test-validation-apis"></a>
 
@@ -2060,7 +2034,7 @@ func FuzzFencepost(f *testing.F) {
 典型的なGoテストでは、テスト関数がプログラムの流れを制御します。[no assert](decisions.ja.md#assert) と [test functions](#test-functions) のガイダンスでは、その状態を維持するように勧めています。
 このセクションでは、Goのスタイルに沿った方法でこれらのテストのサポートを作成する方法について説明します。
 
-その方法を説明する前に、[`io/fs`]の例を考えてみましょう（以下抜粋）：
+その方法を説明する前に、[`io/fs`] の例を考えてみましょう（以下抜粋）：
 
 ```go
 type FS interface {
@@ -2125,7 +2099,7 @@ type FS interface {
         この方法は、[keep going](decisions.ja.md#keep-going) のガイダンスに似ており、受け入れテストがゆっくりと実行されると予想される場合には、好ましいかもしれません。
 
         失敗をどのように集約するかは、ユーザーに個々の失敗を問い合わせる能力を与えるか、あるいは自分自身に与えるかによって決定されるべきです（例えば、あなたが受け入れテストをするために）。
-        以下は、[aggregates errors] (エラーを集約する) [custom error type] [custom types] を使用した場合の例です：
+        以下は、[エラーの集約](index.ja.md#gotip)、[custom error type](index.ja.md#gotip) を使用した場合の例です：
 
         ```go
         var badMoves []error
@@ -2185,7 +2159,6 @@ func TestAcceptance(t *testing.T) {
 
 [sentinels]: index.ja.md#gotip
 [custom types]:index.ja.md#gotip
-[aggregates errors]: index.ja.md#gotip
 
 <a id="use-real-transports"></a>
 
@@ -2221,7 +2194,7 @@ SUTをテストするために、[OperationsServer] の [test double](https://ab
 * サブテストを使用している場合（そして `t.Run` の呼び出しの中にいる場合）、 `t.Fatal` を使用して、現在のサブテストを終了し、テストケースを次のサブテストに進行させることができます。
 
 **Warning:** `t.Fatal`やそれに類する関数を呼び出すことは、必ずしも安全とは言えません。
-[More details here](#t-fatal-goroutine).
+[詳細はこちらをご参照してください](#t-fatal-goroutine)。
 
 [test setup helpers]: #test-helper-error-handling
 
@@ -2233,7 +2206,7 @@ SUTをテストするために、[OperationsServer] の [test double](https://ab
 このセクションでは、Goが使用する意味での [test helpers] について説明します：一般的なアサーション機能ではなく、テストの設定とクリーンアップを行う関数です。
 より多くの議論については、[テスト関数](#test-functions)セクションを参照してください。
 
-[test helpers]: decisions#mark-test-helpers
+[test helpers]: decisions.ja.md#mark-test-helpers
 
 テストヘルパーが行う操作は、失敗することがあります。
 例えば、ファイルを含むディレクトリのセットアップにはI/Oが含まれ、これが失敗することがあります。
@@ -2270,7 +2243,7 @@ func addGameAssets(t *testing.T, dir string) error {
 ```
 
 **Warning:** `t.Fatal`やそれに類する関数を呼び出すことは、必ずしも安全とは言えません。
-[More details](#t-fatal-goroutine) here.
+[詳細はこちらをご参照ください](#t-fatal-goroutine)。
 
 失敗メッセージには、何が起こったのかの説明を含める必要があります。
 これは重要です。多くのユーザーにテスト用 API を提供することになり、特にヘルパーの中でエラーを引き起こすステップの数が増えるほど、その重要性は増していきます。
@@ -2653,7 +2626,7 @@ func TestRegression682831(t *testing.T) {
 
 ## String concatenation
 
-Goで文字列を連結するには、いくつかの方法があります。いくつかの例を挙げます：
+Go で文字列を連結するには、いくつかの方法があります。いくつかの例を挙げます：
 
 * The "+" operator
 * `fmt.Sprintf`
@@ -2679,7 +2652,7 @@ key := "projectid: " + p
 
 ### Prefer `fmt.Sprintf` when formatting
 
-複雑な文字列をフォーマットして構築する場合は、`fmt.Sprintf`を使用することをお勧めします。
+複雑な文字列をフォーマットして構築する場合は、`fmt.Sprintf` を使用することをお勧めします。
 多くの "+"演算子を使用すると、最終的な結果が不明瞭になることがあります。
 
 ```go
@@ -2694,7 +2667,7 @@ bad := src.String() + " [" + qos.String() + ":" + strconv.Itoa(mtu) + "]-> " + d
 
 **Best Practice:**
 文字列作成操作の出力が `io.Writer` である場合、 `fmt.Sprintf` で一時的な文字列を作成して Writer に送信するのはやめましょう。
-代わりに、`fmt.Fprintf`を使って直接Writerに文字列を送ります。
+代わりに、`fmt.Fprintf`を使って直接 Writer に文字列を送ります。
 
 さらに複雑な書式の場合は、適宜 [`text/template`] または [`safehtml/template`] を選択してください。
 
@@ -2798,7 +2771,7 @@ func main() {
 * [Go Tip #44: Improving Time Testability with Struct Fields(index.ja.md#gotip)
 * [Go Tip #80: Dependency Injection Principles](index.ja.md#gotip)
 
-明示的な依存性の受け渡しをサポートしないAPIは、クライアントの数が増えると壊れやすくなるでしょう：
+明示的な依存性の受け渡しをサポートしない API は、クライアントの数が増えると壊れやすくなるでしょう：
 
 ```go
 // Bad:
@@ -2853,7 +2826,7 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
 
 これは、順序に依存するテストケースを作成し、テストフィルタによる実行を壊し、テストの並列実行やシャード化を妨げます。
 
-グローバルステートの使用は、あなたやAPIのクライアントにとって簡単な答えのない問題を引き起こします：
+グローバルステートの使用は、あなたや API のクライアントにとって簡単な答えのない問題を引き起こします：
 
 * クライアントが同じプロセス空間で、（例えば複数のサーバーをサポートするために）異なる別々の操作の `Plugin` のセットを使用する必要がある場合はどうなりますか？
 
@@ -2863,7 +2836,7 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
 
 * 複数のクライアントが同じ名前で `Plugin` を登録した場合、どうなりますか？もしあるとすれば、どちらが勝つのでしょうか？
 
-    エラーはどのように[処理](decisions.ja.md#handle-errors)されるべきでしょうか？コードがパニックになったり、`log.Fatal`を呼び出したりした場合、それは常に[APIが呼び出されるであろうすべての場所で適切](decations.ja.md#dont-panic)となるのでしょうか？
+    エラーはどのように[処理](decisions.ja.md#handle-errors)されるべきでしょうか？コードがパニックになったり、`log.Fatal`を呼び出したりした場合、それは常に[API が呼び出されるであろうすべての場所で適切](decations.ja.md#dont-panic)となるのでしょうか？
     クライアントは、何か悪いことをする前に、それが悪いことでないことを確認することができますか？
 
 * プログラムの起動時や寿命の中で、「Register」を呼び出せる段階と呼び出せない段階があるのでしょうか？
@@ -2884,7 +2857,7 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
  [Easier to Ask for Forgiveness than Permission](https://docs.python.org/3/glossary.html#term-EAFP)
 * [Unit Testing Practices on Public APIs]
 
-グローバルな状態は、[Googleコードベースの健全性](guide.ja.md#maintainability)に連鎖的に影響を与えます。
+グローバルな状態は、[Google コードベースの健全性](guide.ja.md#maintainability)に連鎖的に影響を与えます。
 グローバルな状態には、**細心の注意**をもって臨む必要があります。
 
 [グローバルな状態にはいくつかの形態があり](#globals-forms)、いくつかの[リトマス試験紙を使って安全な時を特定する](#globals-litmus-tests)ことが可能です。
@@ -2895,7 +2868,7 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
 
 ### Major forms of package state APIs
 
-最も一般的な問題のあるAPIフォームを以下に列挙します：：
+最も一般的な問題のある API フォームを以下に列挙します：：
 
 * エクスポートの有無にかかわらず、トップレベルの変数。
 
@@ -2914,7 +2887,7 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
   [最初の例](#globals)をご覧ください。
   サービスロケータのパターン自体は問題なく、むしろロケータがグローバルに定義されていることが問題なのです。
 
-* [コールバック](https://en.wikipedia.org/wiki/Callback_(computer_programming))と同様の動作をするためのレジストリ。
+* [コールバック](https://en.wikipedia.org/wiki/Callback_\(computer_programming\))と同様の動作をするためのレジストリ。
 
     ```go
     // Bad:
@@ -2960,7 +2933,7 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
 * 特に、スタブ、フェイク、スパイ、モックのような[test double]でステートの任意の部分を置き換える気にさせられる。
 * ユーザーは、グローバルな状態と対話するときに、特別な順序の要件を考慮する必要がある： `func init`、フラグがまだ解析されていないか、など
 
-上記の条件が回避されれば、**これらのAPIが安全であるいくつかの限られた状況**、すなわち、以下のいずれかが真である場合があります：
+上記の条件が回避されれば、**これらの API が安全であるいくつかの限られた状況**、すなわち、以下のいずれかが真である場合があります：
 
 * グローバルな状態が論理的に一定である ([example](https://github.com/klauspost/compress/blob/290f4cfacb3eff892555a491e3eeb569a48665e7/zstd/snappy.go#L413)).
 * パッケージの観測可能な動作はステートレスである。
@@ -2980,7 +2953,7 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
 
 * `package image` の API で登録されたデコーダを使用するもの（例えば `image.Decode` など）を複数回呼び出しても、テストと同様、互いに干渉することはできません。
   唯一の例外は `image.RegisterFormat` ですが、これは以下の点によって緩和されます。
-* PNGデコーダは、コードベースが実オブジェクトを優先している例なので、ユーザーがデコーダを [test double] で置き換えたいと思うことは極めて少ないでしょう。
+* PNG デコーダは、コードベースが実オブジェクトを優先している例なので、ユーザーがデコーダを [test double] で置き換えたいと思うことは極めて少ないでしょう。
   しかし、デコーダがオペレーティングシステムのリソース（例えば、ネットワーク）と状態的に相互作用する場合、ユーザはデコーダをテストダブルに置き換える可能性が高くなるであろう。
 * 登録時の衝突は考えられるが、実際には稀であろう。
 * デコーダはステートレス、冪等、純粋である。
@@ -2989,7 +2962,7 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
 
 ### Providing a default instance
 
-推奨はしませんが、ユーザーの利便性を最大限に高める必要がある場合は、パッケージレベルの状態を利用した簡略化したAPIを提供することは許容されます。
+推奨はしませんが、ユーザーの利便性を最大限に高める必要がある場合は、パッケージレベルの状態を利用した簡略化した API を提供することは許容されます。
 
 そのような場合は、このガイドラインを参考に[リトマス試験](#globals-litmus-tests)に従いましょう：
 
@@ -2999,7 +2972,7 @@ Go のテストはデフォルトで順次実行されるため、上記のテ�
 3. このパッケージレベルのAPIは、ライブラリが依存性の受け渡しをサポートするためのリファクタリングを行わない限り、 [libraries] ではなく、[binary build targets] によってのみ使用される必要があります。
    他のパッケージからインポート可能なインフラストラクチャーライブラリは、インポートするパッケージのパッケージレベルの状態に依存してはいけません。
 
-    例えば、トップからのAPIを使って他のチームと共有するサイドカーを実装するインフラプロバイダーは、これに対応するAPIを提供する必要があります：
+    例えば、トップからの API を使って他のチームと共有するサイドカーを実装するインフラプロバイダーは、これに対応する API を提供する必要があります：
 
     ```go
     // Good:

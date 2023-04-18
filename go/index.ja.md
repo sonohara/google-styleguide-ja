@@ -39,7 +39,7 @@ Go スタイルガイドとそれに付随する文書は、読みやすく慣�
 
 3. **[Best Practices](best-practices.ja.md)**
     一般的な問題を解決し、読みやすく、コードのメンテナンスの必要性に強い、長い時間をかけて進化してきたパターンのいくつかを記録しています。
-    これらのベストプラクティスは正規のものではありませんが、GoogleのGoプログラマーは、コードベースの統一と一貫性を保つために、可能な限りこれらのベストプラクティスを使用するよう奨励されています。
+    これらのベストプラクティスは正規のものではありませんが、Google の Go プログラマーは、コードベースの統一と一貫性を保つために、可能な限りこれらのベストプラクティスを使用するよう奨励されています。
 
 このドキュメントは、以下のことを目的としています:
 
@@ -47,7 +47,7 @@ Go スタイルガイドとそれに付随する文書は、読みやすく慣�
 * Go スタイルに関する定型的な事柄を成文化
 * Go のイディオムを文書化して正規の例を提供する
 * 様々なスタイル決定の長所と短所を文書化する
-* Goの可読性レビューで驚きを最小限に抑えるのに役立つ
+* Go の可読性レビューで驚きを最小限に抑えるのに役立つ
 * 読みやすさを追求するメンターは、一貫した用語とガイダンスを使用する
 
 このドキュメントは、以下のことを目的として**いません**:
@@ -57,7 +57,7 @@ Go スタイルガイドとそれに付随する文書は、読みやすく慣�
 * 言語の特徴やスタイルの使用において、適切な判断に置き換える
 * スタイルの違いを解消するために大規模な変更を正当化する
 
-Goのプログラマーによって、またチームのコードベースによって、常に違いがあります。
+Go のプログラマーによって、またチームのコードベースによって、常に違いがあります。
 しかし、私たちのコードベースができる限り一貫していることが、Google と Alphabet の最善の利益となるのです。
  (一貫性については [guide](guide.ja.md#consistency) を参照してください。)
 そのため、スタイルガイドの違反を見つけるたびに、細かく指摘する必要はなく、自由にスタイルを改善してください。
@@ -65,7 +65,7 @@ Goのプログラマーによって、またチームのコードベースによ
 そのため、最新のベストプラクティスを用いて新しいコードを書き、時間をかけて近くの問題に対処することで十分です。
 
 スタイルの問題は本質的に個人的なものであり、常にトレードオフが内在していることを認識することが重要です。
-このドキュメントのガイダンスの多くは主観的なものですが、`gofmt`と同じように、これらの文書が提供する統一性には大きな価値があるのです。
+このドキュメントのガイダンスの多くは主観的なものですが、`gofmt` と同じように、これらの文書が提供する統一性には大きな価値があるのです。
 そのため、スタイルに関する推奨事項は、正当な理由なく変更されることはありません。Googleのプログラマーは、意見が異なる場合でもスタイルガイドに従うことが推奨されます。
 
 <a id="definitions"></a>
@@ -85,15 +85,15 @@ Goのプログラマーによって、またチームのコードベースによ
 
 * **Normative**: 一貫性の確立を意図したもの <a id="normative"></a>
 
-    これらの文書の中で、「normative」とは、提案、用語、および正当性を一貫させるために、Goコードレビュアーが使用するスタイルの合意された要素であるものを説明するために使用されます。
+    これらの文書の中で、「normative」とは、提案、用語、および正当性を一貫させるために、Go コードレビュアーが使用するスタイルの合意された要素であるものを説明するために使用されます。
     これらの要素は時間の経過とともに変更される可能性があり、これらの文書にはそのような変更が反映されるため、レビュアーは一貫した最新の状態を保つことができるようになります。
-    Goコードの作者は、規範となる文書を熟知していることは期待されませんが、可読性レビューの際にレビュアーが参照することは頻繁にあります。
+    Go コードの作者は、規範となる文書を熟知していることは期待されませんが、可読性レビューの際にレビュアーが参照することは頻繁にあります。
 
     https://google.github.io/styleguide/go#normative
 
 * **Idiomatic**: 一般的で身近なもの <a id="idiomatic"></a>
 
-    これらの文書では、「idiomatic」とは、Goのコードに普及しているもので、認識しやすい馴染みのあるパターンとなっているものを指す言葉として使用されています
+    これらの文書では、「idiomatic」とは、Go のコードに普及しているもので、認識しやすい馴染みのあるパターンとなっているものを指す言葉として使用されています
     一般に、idiomatic なパターンは、文脈の中で同じ目的を果たすなら、non-idiomatic なものよりも優先されるべきです。
 
     https://google.github.io/styleguide/go#idiomatic
@@ -102,10 +102,10 @@ Goのプログラマーによって、またチームのコードベースによ
 
 ## Additional references
 
-このガイドでは、読者が [Effective Go] に精通していることを前提としています。これは、Goコミュニティ全体でGoコードの共通ベースラインを提供するためです。
+このガイドでは、読者が [Effective Go] に精通していることを前提としています。これは、Go コミュニティ全体で Go コードの共通ベースラインを提供するためです。
 
-以下は、Goスタイルについて自己学習したい方と、レビューにリンク可能なコンテキストを提供したいレビュアーのための追加リソースです。
-Goの可読性プロセスの参加者は、これらのリソースに精通していることは期待されていませんが、可読性レビューの文脈として発生する可能性があります。
+以下は、Go スタイルについて自己学習したい方と、レビューにリンク可能なコンテキストを提供したいレビュアーのための追加リソースです。
+Go の可読性プロセスの参加者は、これらのリソースに精通していることは期待されていませんが、可読性レビューの文脈として発生する可能性があります。
 
 [Effective Go]: https://go.dev/doc/effective_go
 
@@ -124,17 +124,11 @@ Goの可読性プロセスの参加者は、これらのリソースに精通し
 
 **Relevant Testing-on-the-Toilet articles**
 
-* [TotT: Identifier Naming][tott-431]
-* [TotT: Testing State vs. Testing Interactions][tott-281]
-* [TotT: Effective Testing][tott-324]
-* [TotT: Risk-driven Testing][tott-329]
-* [TotT: Change-detector Tests Considered Harmful][tott-350]
-
-[tott-431]: https://testing.googleblog.com/2017/10/code-health-identifiernamingpostforworl.html
-[tott-281]: https://testing.googleblog.com/2013/03/testing-on-toilet-testing-state-vs.html
-[tott-324]: https://testing.googleblog.com/2014/05/testing-on-toilet-effective-testing.html
-[tott-329]: https://testing.googleblog.com/2014/05/testing-on-toilet-risk-driven-testing.html
-[tott-350]: https://testing.googleblog.com/2015/01/testing-on-toilet-change-detector-tests.html
+* [TotT: Identifier Naming](https://testing.googleblog.com/2017/10/code-health-identifiernamingpostforworl.html)
+* [TotT: Testing State vs. Testing Interactions](https://testing.googleblog.com/2013/03/testing-on-toilet-testing-state-vs.html)
+* [TotT: Effective Testing](https://testing.googleblog.com/2014/05/testing-on-toilet-effective-testing.html)
+* [TotT: Risk-driven Testing](https://testing.googleblog.com/2014/05/testing-on-toilet-risk-driven-testing.html)
+* [TotT: Change-detector Tests Considered Harmful](https://testing.googleblog.com/2015/01/testing-on-toilet-change-detector-tests.html)
 
 **Additional External Writings**
 

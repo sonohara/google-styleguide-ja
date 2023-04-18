@@ -221,8 +221,8 @@ DDoS          | Unexported | `ddos`   | `dDoS`, `dDOS`
 * 大きなスコープは、1つまたはいくつかの大きな操作、例えば15-25行です。
 * 非常に大きなスコープは、1ページ以上に及ぶもの（例えば、25行以上）です。
 
-[clarity]: guide#clarity
-[concision]: guide#concision
+[clarity]: guide.ja.md#clarity
+[concision]: guide.ja.md#concision
 
 小さなスコープでは完全に明確な名前（たとえばカウンターを表す `c`）でも、大きなスコープでは不十分で、コードのさらに先で読者にその目的を思い出させるために明確な説明が必要になることがあります。
 多くの変数が存在するスコープや、似たような値や概念を表す変数では、スコープが示すよりも長い変数名が必要になることがあります。
@@ -252,7 +252,7 @@ DDoS          | Unexported | `ddos`   | `dDoS`, `dDOS`
 
 #### Single-letter variable names
 
-一文字の変数名は、[repetition](#repetition) を最小限に抑えるのに便利なツールですが、コードを不必要に不透明にする可能性もあります。
+一文字の変数名は、[繰り返し](#repetition) を最小限に抑えるのに便利なツールですが、コードを不必要に不透明にする可能性もあります。
 完全な単語が明らかで、1文字の変数の代わりにその単語が現れると繰り返しになるような場合に、その使用を制限してください。
 
 一般的には：
@@ -270,7 +270,7 @@ DDoS          | Unexported | `ddos`   | `dDoS`, `dDOS`
 
 ### Repetition
 
-Goのソースコードの一部では、不必要な繰り返しを避ける必要があります。
+Go のソースコードの一部では、不必要な繰り返しを避ける必要があります。
 よくあるのが名前の繰り返しで、不要な単語が含まれていたり、繰り返しになっていたりします。
 その文脈や種類によって異なります。
 また、同一または類似のコードセグメントが近接して複数回現れると、コード自体が不必要に反復されることがあります。
@@ -286,13 +286,11 @@ Goのソースコードの一部では、不必要な繰り返しを避ける必
 
 > **Examples:** Repetitive Name -> Better Name
 >
-> *   `widget.NewWidget` -> `widget.New`
-> *   `widget.NewWidgetWithName` -> `widget.NewWithName`
-> *   `db.LoadFromDatabase` -> `db.Load`
-> *   `goatteleportutil.CountGoatsTeleported` -> `gtutil.CountGoatsTeleported`
->     or `goatteleport.Count`
-> *   `myteampb.MyTeamMethodRequest` -> `mtpb.MyTeamMethodRequest` or
->     `myteampb.MethodRequest`
+> * `widget.NewWidget` -> `widget.New`
+> * `widget.NewWidgetWithName` -> `widget.NewWithName`
+> * `db.LoadFromDatabase` -> `db.Load`
+> * `goatteleportutil.CountGoatsTeleported` -> `gtutil.CountGoatsTeleported` or `goatteleport.Count`
+> * `myteampb.MyTeamMethodRequest` -> `mtpb.MyTeamMethodRequest` or `myteampb.MethodRequest`
 
 <a id="repetitive-with-type"></a>
 
@@ -387,8 +385,7 @@ func (db *DB) UserCount() (userCount int, err error) {
 }
 ```
 
-Instead, information about names that are clear from context or usage can often
-be omitted:
+その代わり、文脈や用法から明らかな名称については、情報を省略できる場合があります：：
 
 ```go
 // Good:
@@ -408,14 +405,13 @@ func (db *DB) UserCount() (int, error) {
 コメントに関する規約（何をコメントするか、どのようなスタイルを使うか、実行可能な例をどのように提供するか、など）は、公開APIのドキュメントを読む経験をサポートすることを目的としています。
 詳しくは [Effective Go](http://golang.org/doc/effective_go.html#commentary) を参照してください。
 
-ベストプラクティス文書の[documentation conventions] (ドキュメント規約) の項では、この点についてさらに詳しく説明しています。
+ベストプラクティス文書の[ドキュメント規約](best-practices.ja.md#documentation-conventions)の項では、この点についてさらに詳しく説明しています。
 
 **Best Practice:** 開発中やコードレビュー中に [doc preview] を使用して、ドキュメントや実行可能な例が有用であるか、期待通りに表示されているかどうかを確認します。
 
 **Tip:** リストとコードスニペットは、通常、行間を空けるためにインデントする必要があります。インデントを除けば、装飾は一般に避けるべきでしょう。
 
-[doc preview]: best-practices#documentation-preview
-[documentation conventions]:  best-practices#documentation-conventions
+[doc preview]: best-practices.ja.md#documentation-preview
 
 <a id="comment-line-length"></a>
 
@@ -431,7 +427,7 @@ func (db *DB) UserCount() (int, error) {
 このガイドラインは、可読性レビューの一環としてそのようなコードを変更する正当な理由として使用されるべきではありません（[consistency](guide.ja.md#consistency)を参照してください）。
 このガイドラインの主な目的は、Goの可読性メンターが、いつ、どのような場合でも、同じ推奨をすることを確実にすることです。
 
-解説については、こちらの[post from The Go Blog on documentation] (ドキュメントに関するGo Blogの記事) をご覧ください。
+解説については、こちらの[ドキュメントに関する Go Blog の記事](https://blog.golang.org/godoc-documenting-go-code)
 
 ```text
 # Good:
@@ -468,8 +464,8 @@ repeatedly.
 
 <a id="TOC-DocComments"></a>
 
-すべてのトップレベルのエクスポートされた名前にはdocコメントが必要であり、明らかに動作や意味が不明な未エクスポートの型や関数宣言も同様です。
-これらのコメントは、説明されるオブジェクトの名前で始まる [full sentences] (完全な文) であるべきです。
+すべてのトップレベルのエクスポートされた名前には doc コメントが必要であり、明らかに動作や意味が不明な未エクスポートの型や関数宣言も同様です。
+これらのコメントは、説明されるオブジェクトの名前で始まる [完全な文](#comment-sentences)であるべきです。
 より自然に読めるように、名前の前に冠詞（"a"、"an"、"the"）を付けることができます。
 
 ```go
@@ -481,9 +477,7 @@ type Request struct { ...
 func Encode(w io.Writer, req *Request) { ...
 ```
 
-Docコメントは [Godoc](https://pkg.go.dev/) に表示され、IDEによって表面化されるため、パッケージを使う人のために書いておく必要があります。
-
-[full sentences]: #comment-sentences
+Doc コメントは [Godoc](https://pkg.go.dev/) に表示され、IDE によって表面化されるため、パッケージを使う人のために書いておく必要があります。
 
 文書コメントは、以下のシンボル、または構造体の中に出現する場合はフィールドのグループに適用されます。
 
@@ -517,7 +511,7 @@ type Options struct {
 
 文章の断片であるコメントには、句読点や大文字小文字の指定はありません。
 
-[Documentation comments] (文書コメント) は常に完全な文であるべきであり、そのため常に大文字と句読点を使用する必要があります。
+[文書コメント](#doc-comments)は常に完全な文であるべきであり、そのため常に大文字と句読点を使用する必要があります。
 単純な行末コメント（特に構造体フィールドの場合）は、フィールド名を主語とする単純なフレーズにすることができます。
 
 ```go
@@ -537,8 +531,6 @@ type Server struct {
 }
 ```
 
-[Documentation comments]: #doc-comments
-
 <a id="examples"></a>
 
 ### Examples
@@ -546,11 +538,10 @@ type Server struct {
 <a id="TOC-Examples"></a>
 
 パッケージは、その意図する使い方を明確に文書化する必要があります。
-[runnable example] (実行可能な例) を提供するようにしましょう; 例はGodocで表示されます。
+[実行可能な例](http://blog.golang.org/examples)を提供するようにしましょう; 例は Godoc で表示されます。
 実行可能な例は、本番のソースファイルではなく、テストファイルに属します。
 この例を見てください ([Godoc], [source])。
 
-[runnable example]: http://blog.golang.org/examples
 [Godoc]: https://pkg.go.dev/time#example-Duration
 [source]: https://cs.opensource.google/go/go/+/HEAD:src/time/example_test.go
 
@@ -606,7 +597,7 @@ func (n *Node) Parent2() (node *Node, err error)
 関数内部での変数宣言を避けるために、結果パラメータに名前をつけないようにしましょう。
 この習慣は、実装を簡潔にする代償として、不必要なAPIの冗長性をもたらします。
 
-[Naked returns]が許されるのは、小さな関数の中だけです。
+[Naked returns] が許されるのは、小さな関数の中だけです。
 中規模の関数になったら、戻り値を明示するようにしましょう。同様に、ネイキッドリターンを使えるようになるからといって、結果パラメータに名前をつけないようにしましょう。
 [Clarity](guide.ja.md#clarity) は、関数内で数行節約することよりも常に重要です。
 
@@ -615,7 +606,7 @@ func (n *Node) Parent2() (node *Node, err error)
 > **Tip:** 関数のシグネチャでは、名前よりも型の方が明確な場合が多いです。
 > [GoTip #38: Functions as Named Types] では、このことを説明しています。
 >
-> 上記の[`WithTimeout`]では、実際のコードでは結果のパラメータリストに生の`func()`ではなく[`CancelFunc`]を使用しているため、ドキュメントを作成する労力はほとんどありません。
+> 上記の [`WithTimeout`] では、実際のコードでは結果のパラメータリストに生の `func()` ではなく [`CancelFunc`] を使用しているため、ドキュメントを作成する労力はほとんどありません。
 
 [Naked returns]: https://tour.golang.org/basics/7
 [GoTip #38: Functions as Named Types]: https://google.github.io/styleguide/go/index.html#gotip
@@ -643,7 +634,7 @@ package math
 パッケージコメントは、1つのパッケージにつき1つでなければなりません。
 パッケージが複数のファイルで構成されている場合、そのうちのちょうど1つのファイルがパッケージコメントを持つ必要があります。
 
-`main` パッケージのコメントは、BUILDファイル内の `go_binary` ルールの名前がパッケージ名の代わりになる、少し変わった形式をとります。
+`main` パッケージのコメントは、BUILD ファイル内の `go_binary` ルールの名前がパッケージ名の代わりになる、少し変わった形式をとります。
 
 ```go
 // Good:
@@ -670,7 +661,7 @@ Tips:
 * コマンドラインの呼び出し例やAPIの使用方法は、有用なドキュメントとなります。
   Godocフォーマットの場合、コードを含むコメント行はインデントしてください。
 
-* 明らかなプライマリファイルがない場合や、パッケージコメントが異常に長い場合は、コメントとパッケージ条項のみを記述した`doc.go`という名前のファイルにdocコメントを入れてもよいでしょう。
+* 明らかなプライマリファイルがない場合や、パッケージコメントが異常に長い場合は、コメントとパッケージ条項のみを記述した`doc.go`という名前のファイルに doc コメントを入れてもよいでしょう。
 
 * 複数の1行コメントの代わりに、複数行コメントを使用することができます。
   これは、バイナリのコマンドライン例やテンプレートの例など、ソースファイルからコピー＆ペーストすると便利な部分がドキュメントに含まれている場合に主に有効です。
@@ -686,7 +677,7 @@ Tips:
     package template
     ```
 
-* メンテナ向けのコメントで、ファイル全体に適用されるものは、通常 import 宣言の後に置かれます。これらはGodocでは表面化されず、上記のパッケージ・コメントに関するルールの対象にはなりません。
+* メンテナ向けのコメントで、ファイル全体に適用されるものは、通常 import 宣言の後に置かれます。これらは Godoc では表面化されず、上記のパッケージ・コメントに関するルールの対象にはなりません。
 
 <a id="imports"></a>
 
@@ -698,14 +689,14 @@ Tips:
 
 ### Import renaming
 
-Importは、他のImportとの名前の衝突を避けるためにのみ名前を変更すべきです。
-(このことは、[good package names](#package-names) (良いパッケージ名) は名前を変更する必要がないことを意味します)。
+Import は、他の Import との名前の衝突を避けるためにのみ名前を変更すべきです。
+(このことは、[良いパッケージ名](#package-names)は名前を変更する必要がないことを意味します)。
 名前が衝突した場合、最もローカルな、あるいはプロジェクト固有のインポートの名前を変更することをお勧めします。
-パッケージのローカル名(エイリアス)は、アンダースコアと大文字の使用禁止を含め、[the guidance around package naming](#package-names) (パッケージの命名に関するガイダンス) に従わなければなりません。
+パッケージのローカル名(エイリアス)は、アンダースコアと大文字の使用禁止を含め、[パッケージの命名に関するガイダンス](#package-names)に従わなければなりません。
 
 生成されたプロトコルバッファパッケージは、名前からアンダースコアを取り除くために名前を変更する必要があり、そのエイリアスは `pb` という接尾辞を持つ必要があります。詳しくは [proto and stub best practices] を参照してください。
 
-[proto and stub best practices]: best-practices#import-protos
+[proto and stub best practices]: best-practices.ja.md#import-protos
 
 ```go
 // Good:
@@ -717,7 +708,7 @@ import (
 有用な識別情報を持たないパッケージ名（例：`package v1`）を持つインポートは、以前のパスコンポーネントを含むように名前を変更する必要があります。
 リネームは、同じパッケージをインポートする他のローカルファイルと一致させなければならず、バージョン番号を含めることもできます。
 
-**Note:** パッケージ名を [good package names](#package-names) (良いパッケージ名) に合わせて変更することが望ましいのですが、ベンダーのディレクトリのパッケージでは実現不可能な場合が多いです。
+**Note:** パッケージ名を [良いパッケージ名](#package-names)に合わせて変更することが望ましいのですが、ベンダーのディレクトリのパッケージでは実現不可能な場合が多いです。
 
 ```go
 // Good:
@@ -727,7 +718,7 @@ import (
 )
 ```
 
-もし、使用したい共通のローカル変数名（例：`url`、`ssh`）と名前が衝突するパッケージをインポートする必要があり、パッケージ名を変更したい場合は、`pkg`サフィックス（例：`urlpkg`）を使って行うことが好ましい方法です。
+もし、使用したい共通のローカル変数名（例：`url`、`ssh`）と名前が衝突するパッケージをインポートする必要があり、パッケージ名を変更したい場合は、`pkg` サフィックス（例：`urlpkg`）を使って行うことが好ましい方法です。
 パッケージの名前をローカル変数でシャドウすることも可能です。
 
 <a id="import-grouping"></a>
@@ -780,7 +771,7 @@ import (
 )
 ```
 
-**Note:** オプションのグループを維持すること、つまり標準ライブラリと Google インポートの間の必須の分離のために必要なものを超えて分割することは、[goimports]　ツールでサポートされていません。
+**Note:** オプションのグループを維持すること、つまり標準ライブラリと Google インポートの間の必須の分離のために必要なものを超えて分割することは、[goimports] ツールでサポートされていません。
 追加のインポートサブグループは、適合した状態で維持するために、著者とレビュアーの両方の側で注意を払う必要があります。
 
 [goimports]: golang.org/x/tools/cmd/goimports
@@ -803,14 +794,14 @@ Gofmt は、インポートパスによって各グループをソートする�
 このようなパッケージの例としては、以下のようなものがあります：
 
 * [time/tzdata](https://pkg.go.dev/time/tzdata)
-* [image/jpeg](https://pkg.go.dev/image/jpeg) in image processing code
+* [image/jpeg](https://pkg.go.dev/image/jpeg)
 
 ライブラリが間接的に依存している場合でも、ライブラリパッケージの空白のインポートは避けてください。
 副作用のあるインポートをメインパッケージに拘束することで、依存関係を制御し、競合や無駄なビルドコストなしに別のインポートに依存するテストを書くことができるようになります。
 
 ただし、以下の場合は例外とします：
 
-* [nogo static checker]で禁止されているインポートのチェックを回避するために、ブランクインポートを使用することができます。
+* [nogo static checker] で禁止されているインポートのチェックを回避するために、ブランクインポートを使用することができます。
 * コンパイラ指令 `//go:embed` を使用するソースファイルでは、[embed](https://pkg.go.dev/embed) パッケージの空インポートを使用することができます。
 
 **Tip:** プロダクションで副作用のあるインポートに間接的に依存するライブラリパッケージを作成する場合、意図した使用方法を文書化してください。
@@ -869,7 +860,7 @@ var myThing = foo.Bar()
 func Good() error { /* ... */ }
 ```
 
-`nil`エラーを返すことは、他の方法では失敗する可能性のある操作が成功したことを知らせるための慣用的な方法です。
+`nil` エラーを返すことは、他の方法では失敗する可能性のある操作が成功したことを知らせるための慣用的な方法です。
 関数がエラーを返した場合、呼び出し側は、明示的に文書化されていない限り、エラー以外の戻り値をすべて未定義として扱わなければなりません。
 一般に、非エラーの戻り値はそのゼロ値であるが、これを仮定することはできません。
 
@@ -885,7 +876,7 @@ func GoodLookup() (*Result, error) {
 ```
 
 エラーを返すエクスポートされた関数は、 `error` 型を使用してエラーを返す必要があります。
-具体的なエラータイプは微妙なバグの影響を受けやすく、具体的な `nil` ポインタがインターフェースにラップされてしまい、nil でない値になってしまうことがあります (このトピックに関する [Go FAQ entry on the topic][nil error] のエントリーを参照してください)。
+具体的なエラータイプは微妙なバグの影響を受けやすく、具体的な `nil` ポインタがインターフェースにラップされてしまい、nil でない値になってしまうことがあります (このトピックに関する [Go FAQ entry on the topic](https://golang.org/doc/faq#nil_error) のエントリーを参照してください)。
 
 ```go
 // Bad:
@@ -893,8 +884,6 @@ func Bad() *os.PathError { /*...*/ }
 ```
 
 **Tip**: `Context.Context` 引数を取る関数は、通常 `error` を返すべきです。そうすれば、関数の実行中にコンテキストがキャンセルされたかどうかを呼び出し側が判断できます。
-
-[nil error]: https://golang.org/doc/faq#nil_error
 
 <a id="error-strings"></a>
 
@@ -914,7 +903,7 @@ err := fmt.Errorf("Something bad happened.")
 err := fmt.Errorf("something bad happened")
 ```
 
-一方、全文表示されるメッセージ（ロギング、テスト失敗、APIレスポンス、その他のUI）は、スタイルは異なりますが、通常は大文字で表記する必要があります。
+一方、全文表示されるメッセージ（ロギング、テスト失敗、API レスポンス、その他の UI）は、スタイルは異なりますが、通常は大文字で表記する必要があります。
 
 ```go
 // Good:
@@ -937,9 +926,9 @@ t.Errorf("Op(%q) failed unexpectedly; err=%v", args, err)
 * エラーを呼び出し元に返す。
 * 例外的な状況では、[`log.Fatal`] または (絶対に必要な場合は) `panic` を呼び出す。
 
-**Note:** `log.Fatalf` は標準ライブラリのログではありません。[#logging]を参照してください。
+**Note:** `log.Fatalf` は標準ライブラリのログではありません。[#logging] を参照してください。
 
-エラーを無視したり破棄したりすることが適切な稀な状況（例えば、絶対に失敗しないと文書化されている [`(*bytes.Buffer).Write`]の呼び出し）では、付随するコメントで、なぜそれが安全であるかを説明する必要があります。
+エラーを無視したり破棄したりすることが適切な稀な状況（例えば、絶対に失敗しないと文書化されている [`(*bytes.Buffer).Write`] の呼び出し）では、付随するコメントで、なぜそれが安全であるかを説明する必要があります。
 
 ```go
 // Good:
@@ -958,7 +947,7 @@ n, _ := b.Write(p) // never returns a non-nil error
 
 <a id="TOC-In-Band-Errors"></a>
 
-C言語や類似の言語では、エラーや結果の欠落を知らせるために、関数が-1、null、空文字列などの値を返すのが一般的です。これはバンド内エラー処理として知られています。
+C言語や類似の言語では、エラーや結果の欠落を知らせるために、関数が -1、null、空文字列などの値を返すのが一般的です。これはバンド内エラー処理として知られています。
 
 ```go
 // Bad:
@@ -975,7 +964,7 @@ func Lookup(key string) int
 return Parse(Lookup(missingKey))
 ```
 
-Goの複数の戻り値のサポートは、より良い解決策を提供します（[Effective Go section on multiple returns]を参照してください）。
+Go の複数の戻り値のサポートは、より良い解決策を提供します（[Effective Go section on multiple returns]を参照してください）。
 クライアントにバンド内エラー値のチェックを要求する代わりに、関数はその他の戻り値が有効であるかどうかを示す追加の値を返すべきである。
 この戻り値は，エラーであってもよいし，説明が不要な場合にはブール値であってもよく，最終的な戻り値であるべきです。
 
@@ -1000,7 +989,7 @@ return Parse(value)
 
 `strings` パッケージのようないくつかの標準ライブラリ関数は、バンド内のエラー値を返します。
 これは文字列操作のコードを大幅に簡略化しますが、その代償としてプログラマがより注意深くなる必要があります。
-一般的に、GoogleコードベースのGoコードは、エラーに対して追加の値を返すべきです。
+一般的に、Google コードベースの Go コードは、エラーに対して追加の値を返すべきです。
 
 [Effective Go section on multiple returns]: http://golang.org/doc/effective_go.html#multiple-returns
 
@@ -1034,7 +1023,7 @@ if err != nil {
 }
 ```
 
-> **Tip:** 数行以上のコードで変数を使用する場合、一般的に `if`-with-initializer スタイルを使用する価値はありません。
+> **Tip:** 数行以上のコードで変数を使用する場合、一般的に `if-with-initializer` スタイルを使用する価値はありません。
 > このような場合は、宣言を外に出して、標準的な `if` 文を使用した方が良い場合がほとんどです：
 >
 > ```go
@@ -1071,17 +1060,15 @@ if err != nil {
 
 ### Literal formatting
 
-Goには非常に強力な[composite literal syntax] (複合リテラル構文) があり、深くネストした複雑な値を1つの式で表現することが可能です。
+Go には非常に強力な [複合リテラル構文](https://golang.org/ref/spec#Composite_literals)があり、深くネストした複雑な値を1つの式で表現することが可能です。
 可能な限り、フィールドごとに値を構築する代わりに、このリテラル構文を使用する必要があります。
 リテラルの `gofmt` フォーマットは一般的に非常に優れていますが、これらのリテラルを読みやすく、保守的に保つための追加のルールがいくつか存在します。
-
-[composite literal syntax]: https://golang.org/ref/spec#Composite_literals
 
 <a id="literal-field-names"></a>
 
 #### Field names
 
-構造体リテラルは、通常、現在のパッケージの外で定義された型の **フィールド名** を指定する必要があります。
+構造体リテラルは、通常、現在のパッケージの外で定義された型の**フィールド名**を指定する必要があります。
 
 * 他のパッケージの型のフィールド名を含めます。
 
@@ -1090,7 +1077,7 @@ Goには非常に強力な[composite literal syntax] (複合リテラル構文) 
     good := otherpkg.Type{A: 42}
     ```
 
-    構造体内のフィールドの位置やフィールドのフルセット（いずれもフィールド名を省略した場合に正しく理解する必要がある）は、通常、構造体の公開APIの一部とは考えられません。不要な結合を避けるために、フィールド名の指定が必要です。
+    構造体内のフィールドの位置やフィールドのフルセット（いずれもフィールド名を省略した場合に正しく理解する必要がある）は、通常、構造体の公開 API の一部とは考えられません。不要な結合を避けるために、フィールド名の指定が必要です。
 
     ```go
     // Bad:
@@ -1134,7 +1121,7 @@ Goには非常に強力な[composite literal syntax] (複合リテラル構文) 
 #### Matching braces
 
 中括弧の組の終端は、常に開口中括弧と同じインデント量で行に表示されなければなりません。
-1行のリテラルには必ずこの特性があります。リテラルが複数行にまたがる場合、このプロパティを維持することで、リテラルに対するブレースのマッチングは、関数や `if` 文などの一般的なGo構文に対するブレースマッチングと同じになります。
+1行のリテラルには必ずこの特性があります。リテラルが複数行にまたがる場合、このプロパティを維持することで、リテラルに対するブレースのマッチングは、関数や `if` 文などの一般的な Go 構文に対するブレースマッチングと同じになります。
 
 この分野で最もよくある間違いは、複数行の構造体リテラルの値と同じ行に閉じ括弧を置くことです。
 このような場合、その行はコンマで終わり、閉じ波括弧は次の行に表示されるべきです。
@@ -1269,12 +1256,11 @@ repetitive := map[Type1]*Type2{
 
 #### Zero-value fields
 
-[Zero-value] (ゼロ値)フィールドは、構造体リテラルの明確性が損なわれない場合には、省略することができます。
+[ゼロ値](https://golang.org/ref/spec#The_zero_value)フィールドは、構造体リテラルの明確性が損なわれない場合には、省略することができます。
 
-よくできたAPIでは、可読性を高めるためにゼロ値構造を採用することがよくあります。
+よくできた API では、可読性を高めるためにゼロ値構造を採用することがよくあります。
 例えば、次の構造体から3つのゼロ値フィールドを省略すると、指定されている唯一のオプションに注目することができます。
 
-[Zero-value]: https://golang.org/ref/spec#The_zero_value
 
 ```go
 // Bad:
@@ -1312,11 +1298,9 @@ ldb := leveldb.Open("/my/table", &db.Options{
 })
 ```
 
-テーブル駆動テスト内の構造体は、特にテスト構造体が些細なものでない場合、[explicit field names] (フィールド名の明示) が有効なことが多いです。
+テーブル駆動テスト内の構造体は、特にテスト構造体が些細なものでない場合、[フィールド名の明示](#literal-field-names)が有効なことが多いです。
 これにより、当該フィールドがテストケースに関連していない場合、作者はゼロ値フィールドを完全に省略することができます。
 例えば、成功したテストケースは、エラー関連や失敗関連のフィールドを省略する必要があります。ゼロまたは `nil` 入力に対するテストのように、テストケースを理解するためにゼロ値が必要な場合は、フィールド名を指定する必要があります。
-
-[explicit field names]: #literal-field-names
 
 **Concise: 簡潔**
 
@@ -1387,7 +1371,7 @@ s = append(s, 42)
 fmt.Println(s)      // [42]
 ```
 
-空のスライスをローカル変数として宣言する場合（特に戻り値の元になる場合）、呼び出し側によるバグのリスクを減らすために、nilの初期化を推奨されます。
+空のスライスをローカル変数として宣言する場合（特に戻り値の元になる場合）、呼び出し側によるバグのリスクを減らすために、nil の初期化が推奨されます。
 
 ```go
 // Good:
@@ -1399,7 +1383,7 @@ var t []string
 t := []string{}
 ```
 
-nil と empty slice の区別をクライアントに強いるようなAPIを作らないでください。
+nil と empty slice の区別をクライアントに強いるような API を作らないでください。
 
 ```go
 // Good:
@@ -1416,10 +1400,10 @@ func Ping(hosts []string) ([]string, error) { ... }
 func Ping(hosts []string) []string { ... }
 ```
 
-インターフェースを設計する際には、`nil`スライスと`nil`でない長さゼロのスライスを区別することは避けてください、これは微妙なプログラミングエラーにつながる可能性があります。
+インターフェースを設計する際には、`nil` スライスと `nil` でない長さゼロのスライスを区別することは避けてください、これは微妙なプログラミングエラーにつながる可能性があります。
 これは通常、`== nil` ではなく `len` を使って空をチェックすることで達成されます。
 
-この実装では、`nil`と長さゼロのスライスの両方を "空 "として受け取ります：
+この実装では、`nil` と長さゼロのスライスの両方を "空"として受け取ります：
 
 ```go
 // Good:
@@ -1432,7 +1416,7 @@ func describeInts(prefix string, s []int) {
 }
 ```
 
-APIの一部として区別に依存するのではなく:
+API の一部として区別に依存するのではなく:
 
 ```go
 // Bad:
@@ -1451,7 +1435,7 @@ func describeInts(prefix string, s []int) {
 describeInts("Here are some ints:", maybeInts())
 ```
 
-詳しくは[in-band errors]を参照してください。
+詳しくは [in-band errors] を参照してください。
 
 [in-band errors]: #in-band-errors
 
@@ -1481,9 +1465,9 @@ if longCondition1 && longCondition2 &&
 
 ### Function formatting
 
-関数やメソッド宣言のシグネチャは、[indentation confusion](#indentation-confusion) (インデントの混乱) を避けるため、1行にまとめておく必要があります。
+関数やメソッド宣言のシグネチャは、[インデントの混乱](#indentation-confusion)を避けるため、1行にまとめておく必要があります。
 
-関数の引数リストは、Goソースファイルの中で最も長い行を作る可能性があります。
+関数の引数リストは、Go ソースファイルの中で最も長い行を作る可能性があります。
 しかし、それらはインデントの変更に先行しているため、後続の行が紛らわしく関数本体の一部のように見えない方法で改行するのは難解です：
 
 ```go
@@ -1546,7 +1530,7 @@ bad := foo.Call(long, list, of, parameters,
 ```
 
 特定の関数パラメータにコメントを追加しないでください。
-代わりに、[option struct](best-practices#option-structure) (オプション構造体) を使用するか、関数のドキュメントに詳細を追加してください。
+代わりに、[オプション構造体](best-practices#option-structure)を使用するか、関数のドキュメントに詳細を追加してください。
 
 ```go
 // Good:
@@ -1576,7 +1560,7 @@ replacements := []string{
 replacer := strings.NewReplacer(replacements...)
 ```
 
-APIを変更できない場合や、ローカル呼び出しが異常な場合（呼び出しが長すぎるかどうかは別として）、呼び出しの理解を助けるのであれば、改行を加えることは常に許容されます。
+API を変更できない場合や、ローカル呼び出しが異常な場合（呼び出しが長すぎるかどうかは別として）、呼び出しの理解を助けるのであれば、改行を加えることは常に許容されます。
 
 ```go
 // Good:
@@ -1618,7 +1602,7 @@ log.Warningf("Database key (%q, %d, %q) incompatible in"+
 ### Conditionals and loops
 
 `if` 文は改行してはいけません。
-複数行の `if` 句は [indentation confusion](#indentation-confusion) (インデントの混乱) につながる可能性があります。
+複数行の `if` 句は [インデントの混乱](#indentation-confusion)につながる可能性があります。
 
 ```go
 // Bad:
@@ -1658,7 +1642,7 @@ if db.UserIsAdmin(user.GetUniqueUserID()) || db.UserHasPermission(user.GetUnique
 }
 ```
 
-クロージャや複数行の構造体リテラルを含む `if` 文は、[indentation confusion](#indentation-confusion) (インデントの混乱) を避けるために、[braces match](#literal-matching-braces) (括弧の一致) を確認する必要があります。
+クロージャや複数行の構造体リテラルを含む `if` 文は、[インデントの混乱](#indentation-confusion)を避けるために、[括弧の一致](#literal-matching-braces)を確認する必要があります。
 
 ```go
 // Good:
@@ -1730,7 +1714,7 @@ default:
 }
 ```
 
-行が過度に長くなる場合は、[indentation confusion](#indentation-confusion) (インデントの混乱) を避けるため、すべてのケースをインデントして空白行で区切ってください：
+行が過度に長くなる場合は、[インデントの混乱](#indentation-confusion)を避けるため、すべてのケースをインデントして空白行で区切ってください：
 
 ```go
 // Good:
@@ -1758,7 +1742,7 @@ if result == "foo" {
 }
 ```
 
-定数が先に来るというあまり明確でない表現ではなく（["Yoda style conditionals""](https://en.wikipedia.org/wiki/Yoda_conditions))：
+定数が先に来るというあまり明確でない表現ではなく（["Yoda style conditionals"](https://en.wikipedia.org/wiki/Yoda_conditions))：
 
 ```go
 // Bad:
@@ -1788,7 +1772,7 @@ b2 := b1
 ```
 
 値のレシーバーを取るメソッドを呼び出すと、コピーを隠すことができます。
-APIを作成する際、構造体にコピーしてはいけないフィールドがある場合は、一般的にポインタ型を受け取り、返すようにします。
+API を作成する際、構造体にコピーしてはいけないフィールドがある場合は、一般的にポインタ型を受け取り、返すようにします。
 
 これらは許容範囲内です：
 
@@ -1848,7 +1832,7 @@ func Consumer(r Record) {...} // Makes a copy of r.buf
 
 失敗したときにプログラムを停止させるセットアップヘルパー関数は、 `MustXYZ` (または `mustXYZ`) という命名規則に従っています。一般的に、これらはプログラムの起動初期にのみ呼び出すべきで、ユーザー入力のように通常のGoエラー処理を優先するような場合には呼び出すべきではありません。
 
-[package initialization time](https://golang.org/ref/spec#Package_initialization) (パッケージの初期化時) に限定してパッケージレベルの変数を初期化するために呼び出される関数でよく出てくる項目です。
+[パッケージの初期化時](https://golang.org/ref/spec#Package_initialization)に限定してパッケージレベルの変数を初期化するために呼び出される関数でよく出てくる項目です。
 (例えば [template.Must](https://golang.org/pkg/text/template/#Must) や [regexp.MustCompile](https://golang.org/pkg/regexp/#MustCompile)).
 
 ```go
@@ -1869,7 +1853,7 @@ var DefaultVersion = MustParse("1.2.3")
 **Note:** `log.Fatalf` は標準ライブラリのログではありません。[#logging] を参照してください。
 
 同じ規約は、現在のテストだけを停止させるテストヘルパーでも使用できます (`t.Fatal` を使用)。
-このようなヘルパーは、例えば [table driven tests](#table-driven-tests) (テーブル駆動テスト) の struct フィールドにテスト値を作成する際に便利なことがよくあります。
+このようなヘルパーは、例えば [テーブル駆動テストs](#table-driven-tests)の struct フィールドにテスト値を作成する際に便利なことがよくあります。
 
 ```go
 // Good:
@@ -1900,11 +1884,11 @@ func TestCreateObject(t *testing.T) {
 
 これら両方のケースにおいて、このパターンの価値は、ヘルパーを「値」のコンテキストで呼び出すことができることです。
 これらのヘルパーは、エラーを確実に捕捉するのが難しい場所や、エラーが [checked](#handle-errors) されるべきコンテキスト (たとえば、多くのリクエストハンドラ) では呼ばないようにしましょう。
-定数入力の場合は、`Must` 引数が整形されていることを簡単に確認することができます。定数以外の入力の場合は、エラーが [properly handled or propagated] (best-practices.ja.md#error-handling) (適切に処理されるか伝播するか) を検証することができます。
+定数入力の場合は、`Must` 引数が整形されていることを簡単に確認することができます。定数以外の入力の場合は、エラーが [適切に処理されるか伝播するか](best-practices.ja.md#error-handling)を検証することができます。
 
-テスト内で `Must` 関数を使用する場合、一般的には [marked as a test helper](#mark-test-helpers) (テストヘルパーとしてマーク) して、エラー時に `t.Fatal` を呼び出します (テストヘルパーを使う際の考慮点については [error handling in test helpers](best-practices.ja.md#test-helper-error-handling)を参照して下さい)。
+テスト内で `Must` 関数を使用する場合、一般的には [テストヘルパーとしてマーク](#mark-test-helpers)して、エラー時に `t.Fatal` を呼び出します (テストヘルパーを使う際の考慮点については [error handling in test helpers](best-practices.ja.md#test-helper-error-handling)を参照して下さい)。
 
-[ordinary error handling](best-practices.ja.md#error-handling) (通常のエラー処理) が可能な場合は、使用すべきではありません（多少のリファクタリングを含む）：
+[通常のエラー処理](best-practices.ja.md#error-handling)が可能な場合は、使用すべきではありません（多少のリファクタリングを含む）：
 
 ```go
 // Bad:
@@ -1941,7 +1925,7 @@ ch <- 13 // panic
 ゴルーチンを任意に長い時間放置すると、予測できないメモリ使用量になることがあります。
 
 同時実行コードは、ゴルーチンの寿命が明らかであるように記述する必要があります。
-一般的には、同期に関連するコードを関数の範囲内に閉じ込め、ロジックを [synchronous functions] (同期関数) にまとめることを意味します。
+一般的には、同期に関連するコードを関数の範囲内に閉じ込め、ロジックを[同期関数](#synchronous-functions)にまとめることを意味します。
 それでも並行処理が明白でない場合は、ゴルーチンがいつ、なぜ終了するかを文書化することが重要です。
 
 コンテキストの使い方に関するベストプラクティスに従ったコードは、このことを明確にするのに役立つことがあります。
@@ -1959,7 +1943,7 @@ func (w *Worker) Run(ctx context.Context) error {
 }
 ```
 
-上記の他にも、`chan struct{}` のような生の信号チャンネルを使うものや、同期変数、[condition variables][rethinking-slides] (条件変数) などの亜種があります。
+上記の他にも、`chan struct{}` のような生の信号チャンネルを使うものや、同期変数、[条件変数](https://drive.google.com/file/d/1nPdvhB0PutEJzdCq5ms6UI58dp50fcAN/view)などの亜種があります。
 重要なのは、ゴルーチンの終了が後続のメンテナにとって明らかであることです。
 
 一方、次のコードは、生成されたゴルーチンがいつ終了するかについて、無頓着です：
@@ -1985,14 +1969,10 @@ func (w *Worker) Run() {
 
 こちらもご覧ください：
 
-* [Never start a goroutine without knowing how it will stop][cheney-stop]
-* Rethinking Classical Concurrency Patterns: [slides][rethinking-slides], [video][rethinking-video]
+* [Never start a goroutine without knowing how it will stop](https://dave.cheney.net/2016/12/22/never-start-a-goroutine-without-knowing-how-it-will-stop)
+* Rethinking Classical Concurrency Patterns: [slides](https://drive.google.com/file/d/1nPdvhB0PutEJzdCq5ms6UI58dp50fcAN/view), [video](https://www.youtube.com/watch?v=5zXAHh5tJqQ)
 * [When Go programs end]
 
-[synchronous functions]: #synchronous-functions
-[cheney-stop]: https://dave.cheney.net/2016/12/22/never-start-a-goroutine-without-knowing-how-it-will-stop
-[rethinking-slides]: https://drive.google.com/file/d/1nPdvhB0PutEJzdCq5ms6UI58dp50fcAN/view
-[rethinking-video]: https://www.youtube.com/watch?v=5zXAHh5tJqQ
 [When Go programs end]: https://changelog.com/gotime/165
 
 <a id="interfaces"></a>
@@ -2001,20 +1981,20 @@ func (w *Worker) Run() {
 
 <a id="TOC-Interfaces"></a>
 
-Goインターフェースは一般的に、インターフェース型の値を*消費*するパッケージに属し、インターフェース型を*実装*するパッケージには属しません。
+Go インターフェースは一般的に、インターフェース型の値を*消費*するパッケージに属し、インターフェース型を*実装*するパッケージには属しません。
 実装するパッケージは具体的な型（通常はポインタや構造体）を返す必要があります。
 そうすれば、大規模なリファクタリングを必要とせずに、新しいメソッドを実装に追加することができます。
-詳しくは [GoTip #49: Accept Interfaces, Return Concrete Types] (GoTip #49: インターフェイスを受け入れ、具体的な型を返す) を参照してください。
+詳しくは [GoTip #49: Accept Interfaces, Return Concrete Types] を参照してください。
 
-インターフェースを消費するAPIから、インターフェースの [test double] [double types] の実装をエクスポートしないでください。
-代わりに、[real implementation] (実際の実装) の [public API] (公開 API) を使ってテストできるように API を設計してください。
-詳しくは [GoTip #42: Authoring a Stub for Testing] (GoTip #42: テスト用のスタブを作成する) をご覧ください。
+インターフェースを消費するAPIから、インターフェースの [test double](https://abseil.io/resources/swe-book/html/ch13.html#techniques_for_using_test_doubles) の実装をエクスポートしないでください。
+代わりに、[実際の実装](best-practices.ja.md#use-real-transports)の [公開 API](https://abseil.io/resources/swe-book/html/ch12.html#test_via_public_apis)を使ってテストできるように API を設計してください。
+詳しくは [GoTip #42: Authoring a Stub for Testing] をご覧ください。
 実際の実装を使用することが不可能な場合でも、実際の型のすべてのメソッドを完全にカバーするインターフェースを導入する必要はないかもしれません; [GoTip #78: Minimal Viable Interfaces] で示されるように、消費者は必要なメソッドだけを含むインターフェースを作成することができます。
 
 Stubby RPC クライアントを使用するパッケージをテストするには、実際のクライアント接続を使用します。
 実際のサーバーがテストに使えない場合、Googleの内部では、内部の `rpctest` パッケージ（近日公開予定！）を使ってローカルの [test double] への実際のクライアント接続を取得する方法がとられています。
 
-使用する前にインターフェースを定義してはいけません ([TotT: Code Health: Eliminate YAGNI Smells][tott-438] を参照) 。
+使用する前にインターフェースを定義してはいけません ([TotT: Code Health: Eliminate YAGNI Smells](https://testing.googleblog.com/2017/08/code-health-eliminate-yagni-smells.html) を参照) 。
 現実的な使用例がなければ、どのようなメソッドを含むべきかはおろか、インターフェースが必要なのかどうかさえも判断できません。
 
 パッケージの利用者がパラメータに異なる型を渡す必要がない場合は、interface-typed パラメータを使用しないでください。
@@ -2023,14 +2003,10 @@ Stubby RPC クライアントを使用するパッケージをテストするに
 
 **TODO:** インターフェースについてのより詳細なドキュメントを作成し、ここにリンクを貼る。
 
-[GoTip #42: Authoring a Stub for Testing]: https://google.github.io/styleguide/go/index.html#gotip
-[GoTip #49: Accept Interfaces, Return Concrete Types]: https://google.github.io/styleguide/go/index.html#gotip
-[GoTip #78: Minimal Viable Interfaces]: https://google.github.io/styleguide/go/index.html#gotip
-[real implementation]: best-practices#use-real-transports
-[public API]: https://abseil.io/resources/swe-book/html/ch12.html#test_via_public_apis
-[double types]: https://abseil.io/resources/swe-book/html/ch13.html#techniques_for_using_test_doubles
+[GoTip #42: Authoring a Stub for Testing]: index.ja.md#gotip
+[GoTip #49: Accept Interfaces, Return Concrete Types]: index.ja.md#gotip
+[GoTip #78: Minimal Viable Interfaces]: index.ja.md#gotip
 [test double]: https://abseil.io/resources/swe-book/html/ch13.html#basic_concepts
-[tott-438]: https://testing.googleblog.com/2017/08/code-health-eliminate-yagni-smells.html
 
 ```go
 // Good:
@@ -2077,23 +2053,19 @@ func NewThinger() Thinger { return Thinger{ ... } }
 
 ### Generics
 
-Generics (formally called "[Type Parameters]") are allowed where they fulfill your business requirements. 
-In many applications, a conventional approach using existing language features (slices, maps, interfaces, and so on) works just as well without the added complexity, so be wary of premature use. 
-See the discussion on [(guide#least-mechanism).
-
-ジェネリック（正式には「[型パラメータ]」）は、ビジネス要件を満たす場合に許可されます。
+ジェネリックス（正式には「[型パラメータ]( https://go.dev/design/43651-type-parameters)」）は、ビジネス要件を満たす場合に許可されます。
 多くのアプリケーションでは、既存の言語機能（スライス、マップ、インターフェースなど）を使った従来のアプローチが、複雑さを増すことなくうまく機能するので、早まった使用には注意が必要です。
-[least mechanism](guide.ja.md#least-mechanism) (最小の機構) の議論を参照してください。
+[最小の機構](guide.ja.md#least-mechanism) の議論を参照してください。
 
 メンバー要素の型を気にしないアルゴリズムやデータ構造を実装するからといって、ジェネリックスを使わないでください。
 実際にインスタンス化される型が1つしかない場合は、ジェネリックスをまったく使わずに、その型に対してコードを動作させることから始めましょう。
 後でポリモーフィズムを追加するのは、不要だとわかった抽象化を削除するのに比べれば簡単です。
 
-ジェネリックを利用してドメイン固有言語（DSL）を発明しないでください。
+ジェネリックスを利用してドメイン固有言語（DSL）を発明しないでください。
 特に、DSLに大きな負担をかけるようなエラー処理のフレームワークを導入しないでください。
 読者に負担をかけることになります。
-それよりも、確立された「error handling」(#errors) (エラー処理) のプラクティスを優先しましょう。
-テストに関しては、特に「assertion libraries」(#assert) (アサーションライブラリ) やフレームワークの導入に注意し、あまり役に立たない「test failures」(#useful-test-failures) (テストの失敗) が発生しないようにしましょう。
+それよりも、確立された[エラー処理](#errors)のプラクティスを優先しましょう。
+テストに関しては、特に[アサーションライブラリ](#assert)やフレームワークの導入に注意し、あまり役に立たない[テストの失敗](#useful-test-failures)が発生しないようにしましょう。
 
 一般的に:
 
@@ -2107,7 +2079,6 @@ See the discussion on [(guide#least-mechanism).
 * [Generics tutorial] on Go's webpage
 
 [Generics tutorial]: https://go.dev/doc/tutorial/generics
-[Type Parameters]: https://go.dev/design/43651-type-parameters
 [Using Generics in Go]: https://www.youtube.com/watch?v=nr8EpUO9jhw
 [Write code, don't design types]: https://www.youtube.com/watch?v=Pa_e9EeCdy8&t=1250s
 
@@ -2132,16 +2103,10 @@ See the discussion on [(guide#least-mechanism).
 
 <a id="TOC-ReceiverType"></a>
 
-A [method receiver] can be passed either as a value or a pointer, just as if it were a regular function parameter. 
-The choice between the two is based on which [] the method should be a part of.
+[メソッドレシーバー](https://golang.org/ref/spec#Method_declarations)は、通常の関数パラメータと同じように、値またはポインタとして渡すことができます。
+この2つの選択は、そのメソッドがどの [メソッドセット](https://golang.org/ref/spec#Method_sets)の一部であるべきかに基づいています。
 
-[method receiver] (メソッドレシーバー) は、通常の関数パラメータと同じように、値またはポインタとして渡すことができます。
-この2つの選択は、そのメソッドがどの [method set(s)] (メソッドセット(s)) の一部であるべきかに基づいています。
-
-[method receiver]: https://golang.org/ref/spec#Method_declarations
-[method set(s)]: https://golang.org/ref/spec#Method_sets
-
-**スピードやシンプルさよりも、正しさが勝る。** 
+**スピードやシンプルさよりも、正しさが勝る。**
 ポインタ値を使わなければならないケースもあります。
 他のケースでは、大きな型や、コードがどのように成長するかよくわからない場合の将来対策としてポインタを選び、単純な [plain old data] には値を使用するようにしましょう。
 
@@ -2170,7 +2135,7 @@ The choice between the two is based on which [] the method should be a part of.
     func (q *Queue) Push(x Item) { *q = append([]Item{x}, *q...) }
     ```
 
-* レシーバーが、[cannot safely be copied](#copying) (安全にコピーできない) フィールドを含む構造体である場合、ポインタレシーバーを使用してください。一般的な例としては、[`sync.Mutex`] やその他の同期型が挙げられます。
+* レシーバーが、[安全にコピーできない](#copying)フィールドを含む構造体である場合、ポインタレシーバーを使用してください。一般的な例としては、[`sync.Mutex`] やその他の同期型が挙げられます。
 
     ```go
     // Good:
@@ -2190,7 +2155,7 @@ The choice between the two is based on which [] the method should be a part of.
 
 * レシーバーの構造体や配列が「大きい」場合は、ポインターレシーバーの方が効率的な場合があります。
   構造体を渡すことは、そのフィールドや要素をすべてメソッドの引数として渡すことと同じです。
-  [pass by value](#pass-values) (値で渡す) には大きすぎるようであれば、ポインタを使うのがよいでしょう。
+  [値で渡す](#pass-values)には大きすぎるようであれば、ポインタを使うのがよいでしょう。
 
 * レシーバーを変更する他の関数を呼び出したり、同時に実行したりするメソッドでは、それらの変更がメソッドから見えないようにする場合は値を使用し、そうでない場合はポインタを使用する。
 
@@ -2207,7 +2172,7 @@ The choice between the two is based on which [] the method should be a part of.
     }
     ```
 
-* レシーバーが、整数や文字列など、修正の必要がない［built-in type］(組み込み型) の場合は、値を使用する。
+* レシーバーが、整数や文字列など、修正の必要がない[(組み込み型](https://pkg.go.dev/builtin)の場合は、値を使用する。
 
     ```go
     // Good:
@@ -2247,7 +2212,6 @@ The choice between the two is based on which [] the method should be a part of.
 
 [plain old data]: https://en.wikipedia.org/wiki/Passive_data_structure
 [`sync.Mutex`]: https://pkg.go.dev/sync#Mutex
-[built-in type]: https://pkg.go.dev/builtin
 
 <a id="switch-break"></a>
 
@@ -2256,8 +2220,8 @@ The choice between the two is based on which [] the method should be a part of.
 <a id="TOC-SwitchBreak"></a>
 
 ターゲットラベルのない `break` 文は `switch` 節の末尾に使用しないでください。
-CやJavaとは異なり、Goの `switch` 節は自動的にブレークするので、Cスタイルの動作を実現するには `fallthrough` 文が必要です。
-空節の目的を明確にしたい場合は、`break`ではなく、コメントを使用してください。
+C や Java とは異なり、Go の `switch` 節は自動的にブレークするので、C スタイルの動作を実現するには `fallthrough` 文が必要です。
+空節の目的を明確にしたい場合は、`break` ではなく、コメントを使用してください。
 
 ```go
 // Good:
@@ -2325,7 +2289,7 @@ default:
 
 こちらもご参照ください：
 
-* "Rethinking Classical Concurrency Patterns", talk by Bryan Mills: [slides][rethinking-slides], [video][rethinking-video]
+* "Rethinking Classical Concurrency Patterns", talk by Bryan Mills: [slides](https://drive.google.com/file/d/1nPdvhB0PutEJzdCq5ms6UI58dp50fcAN/view), [video](https://www.youtube.com/watch?v=5zXAHh5tJqQ)
 
 <a id="type-aliases"></a>
 
@@ -2334,10 +2298,8 @@ default:
 <a id="TOC-TypeAliases"></a>
 
 新しい型を定義するには、*型定義*である `type T1 T2` を使用します。
-新しい型を定義せずに既存の型を参照するには、[*型エイリアス*]、`type T1 = T2`を使用します。
+新しい型を定義せずに既存の型を参照するには、[*タイプエイリアス*](http://golang.org/ref/spec#Type_declarations)、`type T1 = T2`を使用します。
 タイプエイリアスはまれで、主な用途は、パッケージを新しいソースコードの場所に移行する際の補助となります。必要でないときは、タイプエイリアスを使わないでください。
-
-[*type alias*]: http://golang.org/ref/spec#Type_declarations
 
 <a id="use-percent-q"></a>
 
@@ -2345,7 +2307,7 @@ default:
 
 <a id="TOC-UsePercentQ"></a>
 
-Goのフォーマット関数（`fmt.Printf`など）には、ダブルクォーテーションの中にある文字列を表示する `%q` という動詞があります。
+Go のフォーマット関数（`fmt.Printf`など）には、ダブルクォーテーションの中にある文字列を表示する `%q` という動詞があります。
 
 ```go
 // Good:
@@ -2383,8 +2345,8 @@ Go 1.18 では `interface{}` の [alias] として `any` 型が導入されて�
 <a id="TOC-Flags"></a>
 
 Google コードベースの Go プログラムは、[standard `flag` package] (標準の `flag` パッケージ) の内部的な変種を使用します。
-これは似たようなインターフェイスを持っていますが、Googleの内部システムとの相互運用がうまくいきます。
-Goバイナリのフラグ名は、アンダースコアで単語を区切るのが好ましいですが、フラグの値を保持する変数は標準的なGoの名前のスタイル（[mixed caps]）に従わなければなりません。
+これは似たようなインターフェイスを持っていますが、Google の内部システムとの相互運用がうまくいきます。
+Go バイナリのフラグ名は、アンダースコアで単語を区切るのが好ましいですが、フラグの値を保持する変数は標準的なGoの名前のスタイル（[mixed caps]）に従わなければなりません。
 具体的には、フラグ名はスネークケースで、変数名はキャメルケースで同等の名前にする必要があります。
 
 ```go
@@ -2403,23 +2365,22 @@ var (
 
 フラグは `package main` またはそれに相当する場所でしか定義してはいけません。
 
-汎用パッケージは、コマンドラインインタフェースではなく、GoのAPIを使用して設定する必要があります。
+汎用パッケージは、コマンドラインインタフェースではなく、Go の API を使用して設定する必要があります。
 つまり、明示的な関数引数や構造体フィールドの割り当て、あるいは、それほど頻繁ではありませんが、厳密な監視のもとでエクスポートされたグローバル変数を使用することをお勧めします。
 極稀にこのルールを破る必要がある場合、フラグ名はそのフラグが設定するパッケージを明確に示す必要があります。
 
 フラグがグローバル変数である場合は、importsの項に従って、独自の `var` グループに配置します。
 
-また、サブコマンドを使った[complex CLIs] (複雑なCLI) を作成するためのベストプラクティスに関する議論も行われています。
+また、サブコマンドを使った[複雑な CLI](best-practices.ja.md#complex-clis) を作成するためのベストプラクティスに関する議論も行われています。
 
 こちらもご参照ください：
 
 * [Tip of the Week #45: Avoid Flags, Especially in Library Code][totw-45]
-* [Go Tip #10: Configuration Structs and Flags](https://google.github.io/styleguide/go/index.html#gotip)
-* [Go Tip #80: Dependency Injection Principles](https://google.github.io/styleguide/go/index.html#gotip)
+* [Go Tip #10: Configuration Structs and Flags](index.ja.md#gotip)
+* [Go Tip #80: Dependency Injection Principles](index.ja.md#gotip)
 
 [standard `flag` package]: https://golang.org/pkg/flag/
 [mixed caps]: guide.ja.md#mixed-caps
-[complex CLIs]: best-practices.ja.md#complex-clis
 [totw-45]: https://abseil.io/tips/45
 
 <a id="logging"></a>
@@ -2427,7 +2388,7 @@ var (
 ### Logging
 
 Google コードベースの Go プログラムは、[standard `log` package] (標準の `log` パッケージ) の変種を使用しています。
-これは似たようなものですが、より強力なインターフェイスを持っており、Googleの内部システムとうまく相互運用することができます。
+これは似たようなものですが、より強力なインターフェイスを持っており、Google の内部システムとうまく相互運用することができます。
 このライブラリのオープンソース版は [package `glog`] として提供されており、オープンソースの Google プロジェクトではそれを使用することができますが、このガイドではずっと `log` と表記しています。
 
 **Note:**
@@ -2468,7 +2429,7 @@ func F(ctx context.Context /* other arguments */) {}
 ただし、例外はあります：
 
 * HTTPハンドラで、コンテキストが [`req.Context()`](https://pkg.go.dev/net/http#Request.Context) に由来する場合。
-* ストリーミングRPCメソッドで、コンテキストがストリームから来る場合。
+* ストリーミング RPC メソッドで、コンテキストがストリームから来る場合。
   gRPC ストリーミングを使用するコードは、`grpc.ServerStream` を実装した生成されたサーバータイプの `Context()` メソッドからコンテキストにアクセスします。
   [gRPC Generated Code documentation](https://grpc.io/docs/languages/go/generated-code/) を参照してください。
 
@@ -2481,7 +2442,7 @@ func F(ctx context.Context /* other arguments */) {}
 > コールチェーンの途中のコードで、`context.Background()` を使ってそれ自身のベースコンテキストを作成する必要があることは非常にまれです。
 > 間違ったコンテキストでない限り、常に通話相手からコンテキストを取ることを好みます。
 >
-> サーバライブラリ（ Google の Go 用サーバフレームワークの Stubby や gRPC、HTTP の実装）の中には、リクエストごとに新しいコンテキストオブジェクトを構築するものがあるかもしれません。
+> サーバライブラリ（Google の Go 用サーバフレームワークの Stubby や gRPC、HTTP の実装）の中には、リクエストごとに新しいコンテキストオブジェクトを構築するものがあるかもしれません。
 > これらのコンテキストは、受信したリクエストからの情報で直ちに満たされ、リクエストハンドラーに渡されたとき、コンテキストの付属の値は、クライアント呼び出し元からネットワーク境界を越えてそのコンテキストに伝搬されます。
 > さらに、これらのコンテキストの寿命は、リクエストの寿命にスコープされます：リクエストが終了すると、コンテキストはキャンセルされます。
 >
@@ -2502,7 +2463,7 @@ Google の管理外のサードパーティライブラリを使用している�
 このようなケースは非常にまれであり、実装や可読性の確認の前に、Google Go style メーリングリストに相談するようにしてください。
 
 Google のコードベースにおいて、親コンテキストがキャンセルされた後に実行できるバックグラウンド操作を生成する必要があるコードは、切り離しのために内部パッケージを使用することができます。
-オープンソースの代替案については、[issue #40221](https://github.com/golang/go/issues/40221)を参照してください。
+オープンソースの代替案については、[issue #40221](https://github.com/golang/go/issues/40221) を参照してください。
 コンテキストは不変なので、同じデッドライン、キャンセルシグナル、クレデンシャル、親トレースなどを共有する複数のコールに同じコンテキストを渡しても問題ありません。
 
 こちらもご参照ください：
@@ -2585,7 +2546,7 @@ func Key() string {
 テストのためのヘルパーとして「アサーション・ライブラリ」を作成しないこと。
 
 アサーション・ライブラリは、テスト内で失敗メッセージの検証と生成を組み合わせようとするライブラリです（ただし、他のテストヘルパーにも同じ落とし穴があります）。
-テストヘルパーとアサーションライブラリの区別については、[best practices] (best-practices.ja.md#test-functions) を参照してください。
+テストヘルパーとアサーションライブラリの区別については、[best practices](best-practices.ja.md#test-functions) を参照してください。
 
 ```go
 // Bad:
@@ -2616,7 +2577,7 @@ func StringEq(t *testing.T, name, got, want string) {
 }
 ```
 
-複雑なアサーション関数では、テスト関数内に存在する[useful failure messages] (有用な失敗メッセージ) やコンテキストが提供されないことがよくあります。
+複雑なアサーション関数では、テスト関数内に存在する[有用な失敗メッセージ](#useful-test-failures)やコンテキストが提供されないことがよくあります。
 アサーション関数やライブラリの数が多すぎると、開発者の体験が断片的になってしまいます：どのアサーション・ライブラリを使うべきか、どのようなスタイルの出力形式を出すべきか、などです。
 特に、ライブラリの保守担当者や大規模な変更の作成者は、下流で起こりうる不具合を修正する責任を負うことになるため、断片化は不必要な混乱をもたらします。
 テスト用にドメイン固有の言語を作成する代わりに、Go自体を使用することです。
@@ -2662,16 +2623,14 @@ func TestBlogPost_VeritableRant(t *testing.T) {
 * [Print diffs](#print-diffs)
 * For more on the distinction between test helpers and assertion helpers, see [best practices](best-practices.ja.md#test-functions)
 
-[useful failure messages]: #useful-test-failures
 [`fmt`]: https://golang.org/pkg/fmt/
-[marking test helpers]: #mark-test-helpers
 
 <a id="identify-the-function"></a>
 
 ### Identify the function
 
 ほとんどのテストでは、失敗のメッセージには失敗した関数の名前を含めるべきです、たとえそれがテスト関数の名前から明白に思えるとしてもです。
-具体的には、失敗のメッセージは「%vを得た、%vが欲しい」ではなく、「YourFunc(%v) = %v, want %v`」とすべきです。
+具体的には、失敗のメッセージは「%vを得た、%vが欲しい」ではなく、「`YourFunc(%v) = %v, want %v`」とすべきです。
 
 <a id="identify-the-input"></a>
 
@@ -2689,17 +2648,15 @@ func TestBlogPost_VeritableRant(t *testing.T) {
 "actual" と "expected" と書くところ、それぞれ "got" と "want" という言葉を使うのが好ましいです。
 
 差分の場合、方向性はあまりはっきりしないので、失敗を解釈するためのキーを含めることが重要です。
-[section on printing diffs] (差分の表示に関するセクション) を参照してください。
+[差分の表示に関するセクション](#print-diffs)を参照してください。
 既存のコードでは順序に一貫性がないため、失敗メッセージでどのようなdiffの順序を使用するにしても、失敗メッセージの一部として明示的に示す必要があります。
-
-[section on printing diffs]: #print-diffs
 
 <a id="compare-full-structures"></a>
 
 ### Full structure comparisons
 
 関数が構造体（またはスライス、配列、マップなど複数のフィールドを持つデータ型）を返す場合、構造体のフィールドごとの比較を手作業で行うテスト コードを書くのは避けてください。
-代わりに、関数が返すと予想されるデータを構築し、[deep comparison] (深い比較) を使用して直接比較します。
+代わりに、関数が返すと予想されるデータを構築し、[深い比較](#types-of-equality)を使用して直接比較します。
 
 **Note:**
 ただし、データに無関係なフィールドがあり、テストの意図が不明瞭な場合はこの限りではありません。
@@ -2726,7 +2683,6 @@ if tail != `Fran & Freddie's Diner"` {
 }
 ```
 
-[deep comparison]: #types-of-equality
 [`cmpopts`]: https://pkg.go.dev/github.com/google/go-cmp/cmp/cmpopts
 [`cmpopts.IgnoreInterfaces`]: https://pkg.go.dev/github.com/google/go-cmp/cmp/cmpopts#IgnoreInterfaces
 
@@ -2738,7 +2694,7 @@ if tail != `Fran & Freddie's Diner"` {
 その代わりに、テストは、安定していて依存関係の変更に強い、意味的に関連する情報で比較する必要があります。
 フォーマットされた文字列やシリアル化されたバイトを返す機能については、一般的に、出力が安定していると仮定するのは安全ではありません。
 
-例えば、[`json.Marshal`]は、それが発する特定のバイトを変更することができます（過去に変更したこともあります）。
+例えば、[`json.Marshal`] は、それが発する特定のバイトを変更することができます（過去に変更したこともあります）。
 JSON 文字列に対して文字列の等式を実行するテストは、`json` パッケージがバイトをシリアライズする方法を変更した場合に壊れる可能性があります。
 その代わりに、より堅牢なテストでは、JSON 文字列の内容を解析して、それが期待されるデータ構造と意味的に等価であることを確認します。
 
@@ -2751,10 +2707,10 @@ JSON 文字列に対して文字列の等式を実行するテストは、`json`
 テストは、1回の実行で失敗したチェックをすべて出力するために、失敗した後でもできるだけ長く続けなければなりません。
 こうすれば、失敗したテストを修正している開発者は、バグを修正するたびに次のバグを見つけるためにテストを再実行する必要がなくなります。
 
-ミスマッチを報告する場合は、`t.Fatal`よりも`t.Error`を優先的に呼び出します。
+ミスマッチを報告する場合は、`t.Fatal` よりも `t.Error` を優先的に呼び出します。
 関数の出力の複数の異なるプロパティを比較する場合、それぞれの比較に `t.Error` を使用します。
 
-`t.Fatal`の呼び出しは、主に予期せぬエラー状態を報告するのに役立ち、その後の比較の失敗が意味をなさないような場合です。
+`t.Fatal` の呼び出しは、主に予期せぬエラー状態を報告するのに役立ち、その後の比較の失敗が意味をなさないような場合です。
 
 テーブル駆動テストでは、サブテストの使用を検討し、`t.Error` と `continue` ではなく、`t.Fatal` を使用します。 [GoTip #25: Subtests: Making Your Tests Lean](https://google.github.io/styleguide/go/index.html#gotip) も参照してください。
 
@@ -2765,8 +2721,8 @@ JSON 文字列に対して文字列の等式を実行するテストは、`json`
 
 ### Equality comparison and diffs
 
-演算子 `==` は、[language-defined comparisons] (言語で定義された比較) を使って等式を評価します。
-スカラー値（数値、ブーリアンなど）は、その値に基づいて比較されますが、この方法で比較できるのは一部の構造体とインターフェースだけです。
+演算子 `==` は、[言語で定義された比較](http://golang.org/ref/spec#Comparison_operators)を使って等式を評価します。
+スカラー値（数値、Boolean など）は、その値に基づいて比較されますが、この方法で比較できるのは一部の構造体とインターフェースだけです。
 ポインターは、指し示す値の等しさではなく、同じ変数を指しているかどうかで比較されます。
 
 [`cmp`] パッケージは、スライスのような `==` では適切に扱えない複雑なデータ構造の比較を行うことができます。
@@ -2800,7 +2756,6 @@ if diff := cmp.Diff(want, got, protocmp.Transform()); diff != "" {
 `cmp` パッケージは Go 標準ライブラリの一部ではありませんが、Go チームによってメンテナンスされているため、長期間にわたって安定した等式結果を得ることができるはずです。
 このパッケージはユーザが設定可能で、ほとんどの比較のニーズに応えられるはずです。
 
-[language-defined comparisons]: http://golang.org/ref/spec#Comparison_operators
 [`cmp`]: https://pkg.go.dev/github.com/google/go-cmp/cmp
 [`cmp.Equal`]: https://pkg.go.dev/github.com/google/go-cmp/cmp#Equal
 [`cmp.Diff`]: https://pkg.go.dev/github.com/google/go-cmp/cmp#Diff
@@ -2810,7 +2765,7 @@ if diff := cmp.Diff(want, got, protocmp.Transform()); diff != "" {
 
 * [`pretty`] は、美的感覚に優れた差分レポートを作成します。
   しかし、視覚的な表現が同じである値については、意図的に等しいとみなしているのです。
-  特に、`pretty`はnilスライスと空のスライスの違いを捉えず、同一のフィールドを持つ異なるインターフェースの実装に敏感でなく、構造体値との比較の基礎として入れ子マップを使用することが可能です。
+  特に、`pretty` は nil スライスと空のスライスの違いを捉えず、同一のフィールドを持つ異なるインターフェースの実装に敏感でなく、構造体値との比較の基礎として入れ子マップを使用することが可能です。
   また、値全体を文字列にシリアライズしてから diff を生成するため、大きな値の比較には向いていません。
   デフォルトでは、エクスポートされていないフィールドを比較するため、依存関係にある実装の詳細が変更された場合に影響を受けやすくなります。このため、protobuf メッセージに `pretty` を使用することは適切ではありません。
 
@@ -2840,7 +2795,7 @@ cmp のパニックの傾向を考えると、誤ったパニックが致命的�
 * データが複雑な構造で定型文が多い場合は、重要な部分のみをメッセージに記述しても構いませんが、データを過度に曖昧にしないようにしてください。
 * セットアップの失敗は、同じレベルのものを必要としません。
   テストヘルパーがスパナーテーブルに入力するが、スパナーがダウンしていた場合、おそらくどのテスト入力をデータベースに保存するつもりだったかを含める必要はないでしょう。
-  `t.Fatalf("Setup: Failed to set up test database: %s", err)`は通常、問題を解決するのに十分役立ちます。
+  `t.Fatalf("Setup: Failed to set up test database: %s", err)` は通常、問題を解決するのに十分役立ちます。
 
 **Tip:**
 開発中に失敗モードのトリガーを作っておきましょう。
@@ -2848,9 +2803,9 @@ cmp のパニックの傾向を考えると、誤ったパニックが致命的�
 
 テストの入出力を明確に再現するためのテクニックがあります：
 
-* 文字列データを出力する場合、値が重要であることを強調し、悪い値をより簡単に発見するために、[`%q` is often useful](#use-percent-q) (`%q`はしばしば有用) となります。
-* (小さな) 構造体を出力する場合、`%v`よりも`%+v`の方が便利な場合があります。
-* 大きな値の検証に失敗した場合、[printing a diff](#print-diffs) (diffを出力する) ことで失敗を理解しやすくすることができます。
+* 文字列データを出力する場合、値が重要であることを強調し、悪い値をより簡単に発見するために、[`%q`はしばしば有用](#use-percent-q)です。
+* (小さな) 構造体を出力する場合、`%v` よりも `%+v` の方が便利な場合があります。
+* 大きな値の検証に失敗した場合、[diffを出力する](#print-diffs)ことで失敗を理解しやすくすることができます。
 
 <a id="print-diffs"></a>
 
@@ -2860,7 +2815,7 @@ cmp のパニックの傾向を考えると、誤ったパニックが致命的�
 返された値と欲しい値の両方を表示する代わりに、差分を作成します。
 
 このような値の差分を計算するには、特に新しいテストや新しいコードの場合は `cmp.Diff` が好ましいですが、他のツールを使うこともできます。
-各機能の長所と短所に関するガイダンスについては、[types of equality] (等号の種類) を参照してください。
+各機能の長所と短所に関するガイダンスについては、[等号の種類](#types-of-equality)を参照してください。
 
 * [`cmp.Diff`]
 * [`pretty.Compare`]
@@ -2868,7 +2823,6 @@ cmp のパニックの傾向を考えると、誤ったパニックが致命的�
 [`diff`] パッケージを使用すると、複数行の文字列や文字列のリストを比較することができます。
 これを他の種類の差分のためのビルディングブロックとして使用することができます。
 
-[types of equality]: #types-of-equality
 [`diff`]: https://pkg.go.dev/github.com/kylelemons/godebug/diff
 [`pretty.Compare`]: https://pkg.go.dev/github.com/kylelemons/godebug/pretty#Compare
 
@@ -2893,10 +2847,10 @@ diff は複数行にまたがるので、diff を表示する前に改行をし�
 ### Test error semantics
 
 ユニットテストで文字列比較を行ったり、バニラの `cmp` を使って特定の入力に対して特定の種類のエラーが返されることをチェックしたりすると、将来これらのエラーメッセージが言い換えられたときに、テストがもろくなることがあります。
-これはユニットテストを変更検出器にしてしまう可能性があるので (参照 [TotT: Change-Detector Tests Conside Harmful][tott-350] )、関数が返すエラーの種類をチェックするために文字列比較を使わないでください。
+これはユニットテストを変更検出器にしてしまう可能性があるので (参照 [TotT: Change-Detector Tests Conside Harmful](https://testing.googleblog.com/2015/01/testing-on-toilet-change-detector-tests.html))、関数が返すエラーの種類をチェックするために文字列比較を使わないでください。
 しかし、テスト対象のパッケージから送られてくるエラーメッセージが、ある特性を満たしているかどうかをチェックするために文字列比較を使うことは許されています。
 
-Goのエラー値には、通常、人間の目を意識した成分と、意味的な制御フローを意識した成分があります。
+Go のエラー値には、通常、人間の目を意識した成分と、意味的な制御フローを意識した成分があります。
 テストは、人間のデバッグを目的とした情報を表示するのではなく、確実に観察できる意味的な情報のみをテストするように努めるべきです、これは将来的に変更されることが多いからです。
 意味的な意味を持つエラーを作成するためのガイダンスについては、[best-practices regarding errors](best-practices.ja.md#error-handling) をご覧ください。
 意味的な情報が不十分なエラーが自分のコントロール外の依存関係から発生している場合、エラーメッセージの解析に頼るのではなく、APIを改善するためにその所有者に対してバグを提出することを検討してください。
@@ -2906,9 +2860,9 @@ Goのエラー値には、通常、人間の目を意識した成分と、意味
 もし、エラーが他のエラーと意味的に一致することをテストしたい場合は、`cmp` と [`cmpopts.EquateErrors`] を使用することを検討してください。
 
 > **Note:**
-> テストが [`cmpopts.EquateErrors`] を使用しているが、その `wantErr` の値がすべて `nil` または `cmpopts.AnyError` である場合、`cmp` の使用は [unnecessary mechanism] (guide.ja.md#least-mechanism)  (不要な機構) です。
-> wantフィールドを`bool`にすることで、コードを簡略化することができます。
-> そして、`!=`で単純な比較をすることができます。
+> テストが [`cmpopts.EquateErrors`] を使用しているが、その `wantErr` の値がすべて `nil` または `cmpopts.AnyError` である場合、`cmp` の使用は [不要な機構](guide.ja.md#least-mechanism)です。
+> wantフィールドを `bool` にすることで、コードを簡略化することができます。
+> そして、`!=` で単純な比較をすることができます。
 >
 > ```go
 > // Good:
@@ -2918,9 +2872,8 @@ Goのエラー値には、通常、人間の目を意識した成分と、意味
 > }
 > ```
 
-[GoTip #13: Designing Errors for Checking](https://google.github.io/styleguide/go/index.html#gotip) も参照してください。
+[GoTip #13: Designing Errors for Checking](index.ja.md#gotip) も参照してください。
 
-[tott-350]: https://testing.googleblog.com/2015/01/testing-on-toilet-change-detector-tests.html
 [`cmpopts.EquateErrors`]: https://pkg.go.dev/github.com/google/go-cmp/cmp/cmpopts#EquateErrors
 
 <a id="test-structure"></a>
@@ -2931,14 +2884,13 @@ Goのエラー値には、通常、人間の目を意識した成分と、意味
 
 ### Subtests
 
-標準のGoテストライブラリには、[define subtests] (サブテストを定義する) 機能があります。
+標準の Go テストライブラリには、[サブテストを定義する](https://pkg.go.dev/testing#hdr-Subtests_and_Sub_benchmarks)機能があります。
 これにより、セットアップとクリーンアップ、並列性の制御、テストのフィルタリングを柔軟に行うことができます。
 サブテストは便利ですが (特にテーブル駆動型テストに)、使用は必須ではありません。
-サブテストに関するGoブログの記事](https://blog.golang.org/subtests)も参照してください。
+[サブテストに関するGoブログの記事](https://blog.golang.org/subtests)も参照してください。
 
 サブテストは、`go test -run` フラグや Bazel [test filter] 式を使って個別に実行できることが期待されるため、成功や初期状態について他のケースの実行に依存してはいけません。
 
-[define subtests]: https://pkg.go.dev/testing#hdr-Subtests_and_Sub_benchmarks
 [test filter]: https://bazel.build/docs/user-manual#test-filter
 
 <a id="subtest-names"></a>
@@ -2946,16 +2898,16 @@ Goのエラー値には、通常、人間の目を意識した成分と、意味
 #### Subtest names
 
 サブテストの名前は、テスト出力で読みやすく、テストフィルタリングのユーザーにとってコマンドラインで便利なようにします。
-t.Run`を使用してサブテストを作成する場合、最初の引数はテストの説明的な名前として使用されます。
+`t.Run` を使用してサブテストを作成する場合、最初の引数はテストの説明的な名前として使用されます。
 テスト結果がログを読む人間にとって読みやすいものであることを保証するために、エスケープした後も有用で読みやすいサブテスト名を選びます。
 サブテスト名は、散文的な説明というよりも、関数の識別子のようなものだと考えてください。
 テストランナーは、スペースをアンダースコアに置き換え、印字されない文字をエスケープします。
 もしテストデータに長い説明が必要な場合は、説明を別のフィールドに書くことを検討してください (おそらく `t.Log` を使って出力するか、失敗メッセージと一緒に出力することになるでしょう)。
 
-サブテストは、[Go test runner]や Bazel [test filter]のフラグを使って個別に実行することができるので、入力しやすい説明的な名前を選びましょう。
+サブテストは、[Go test runner] や Bazel [test filter] のフラグを使って個別に実行することができるので、入力しやすい説明的な名前を選びましょう。
 
 > **Warning:**
-> スラッシュ文字は、[special meaning for test filters] (テストフィルタに特別な意味) を持つため、サブテスト名には特に不向きです。
+> スラッシュ文字は、[テストフィルタに特別な意味](https://blog.golang.org/subtests#:~:text=Perhaps%20a%20bit,match%20any%20tests)を持つため、サブテスト名には特に不向きです。
 >
 > > ```sh
 > > # Bad:
@@ -2964,7 +2916,7 @@ t.Run`を使用してサブテストを作成する場合、最初の引数は�
 > > bazel test :mytest --test_filter="Time//New_York"   # Correct, but awkward.
 > > ```
 
-[identify the inputs] (関数の入力を特定) するには、テストの失敗メッセージの中に、テストランナーによってエスケープされないような入力を入れてください。
+[関数の入力を特定](#identify-the-input)するには、テストの失敗メッセージの中に、テストランナーによってエスケープされないような入力を入れてください。
 
 ```go
 // Good:
@@ -3004,8 +2956,6 @@ t.Run("AM/PM confusion", ...)
 ```
 
 [Go test runner]: https://golang.org/cmd/go/#hdr-Testing_flags
-[identify the inputs]: #identify-the-input
-[special meaning for test filters]: https://blog.golang.org/subtests#:~:text=Perhaps%20a%20bit,match%20any%20tests
 
 <a id="table-driven-tests"></a>
 
@@ -3014,12 +2964,9 @@ t.Run("AM/PM confusion", ...)
 同じようなテストロジックで多くの異なるテストケースをテストできる場合は、テーブル駆動型テストを使用します。
 
 * ある関数の実際の出力が期待される出力と等しいかどうかをテストする場合。
-  例えば、多くの[tests of `fmt.Sprintf`] (`fmt.Sprintf` のテスト) や以下の最小限のスニペットです。
+  例えば、多くの [`fmt.Sprintf` のテスト](https://cs.opensource.google/go/go/+/master:src/fmt/fmt_test.go)や以下の最小限のスニペットです。
 * ある関数の出力が常に同じ不変条件セットに適合しているかどうかをテストする場合。
-  例えば、[tests for `net.Dial`].
-
-[tests of `fmt.Sprintf`]: https://cs.opensource.google/go/go/+/master:src/fmt/fmt_test.go
-[tests for `net.Dial`]: https://cs.opensource.google/go/go/+/master:src/net/dial_test.go;l=318;drc=5b606a9d2b7649532fe25794fa6b99bd24e7697c
+  例えば、[`net.Dial` のテスト](https://cs.opensource.google/go/go/+/master:src/net/dial_test.go;l=318;drc=5b606a9d2b7649532fe25794fa6b99bd24e7697c).
 
 ここでは、標準的な `strings` ライブラリからコピーした、テーブル駆動型テストの最小構造を示します。
 必要に応じて、異なる名前を使ったり、テストスライスをテスト関数に移動したり、サブテストやセットアップ・クリーンアップ関数のような余分な機能を追加することができます。
@@ -3058,12 +3005,12 @@ func TestCompare(t *testing.T) {
 ```
 
 **Note**:
-この例の失敗メッセージは、「identify the function」(#identify-the-function) (機能を特定する) と「identify the input」(#identify-the-input) (入力を特定する) というガイダンスを満たしています。
-[identify the row numerically](#table-tests-identifying-the-row) (行を数値で識別する) 必要はありません。
+この例の失敗メッセージは、["機能を特定する"](#identify-the-function) と["入力を特定する"](#identify-the-input)というガイダンスを満たしています。
+[行を数値で識別する](#table-tests-identifying-the-row)必要はありません。
 
 あるテストケースが他のテストケースと異なるロジックでチェックされる必要がある場合、[GoTip #50: Disjoint Table Tests] で説明したように、複数のテスト関数を書く方が適切です。
 テーブルの各エントリに、入力に対する出力をチェックするための異なる条件ロジックがあると、テストコードのロジックが理解しづらくなることがあります。もしテストケースが異なるロジックを持つ場合でも
-同じ設定であれば、1つのテスト関数の中に [subtests](#subtests) (サブテスト) の列があってもよいかもしれません。
+同じ設定であれば、1つのテスト関数の中に [サブテスト](#subtests)の列があってもよいかもしれません。
 
 テーブル駆動テストは、複数のテスト関数と組み合わせることができます。
 例えば、ある関数の出力が期待される出力と完全に一致することと、無効な入力に対して関数が nil でないエラーを返すことをテストする場合、2つの別々のテーブル駆動テスト関数を書くことが最適な方法です：一つはエラーでない通常の出力用、一つはエラー出力用です。
@@ -3125,7 +3072,7 @@ func TestDecodeWithFake(t *testing.T) {
 }
 ```
 
-以下の反例では、テストケースごとにどのタイプの `Codex` が使われているかを、ケースセットアップで区別するのがいかに難しいかに注目してください。(ハイライトした部分は、[TotT: Data Driven Traps!][tott-97] のアドバイスに反しています)。
+以下の反例では、テストケースごとにどのタイプの `Codex` が使われているかを、ケースセットアップで区別するのがいかに難しいかに注目してください。(ハイライトした部分は、[TotT: Data Driven Traps!](https://testing.googleblog.com/2008/09/tott-data-driven-traps.html) のアドバイスに反しています)。
 
 ```go
 // Bad:
@@ -3170,8 +3117,6 @@ func TestDecode(t *testing.T) {
 }
 ```
 
-[tott-97]: https://testing.googleblog.com/2008/09/tott-data-driven-traps.html
-
 <a id="table-tests-identifying-the-row"></a>
 
 #### Identifying the row
@@ -3198,11 +3143,8 @@ for i, d := range tests {
 サブテストを使用する場合、サブテスト名は行を識別するのに有効であるべきです。
 
 **Important:**
-たとえ `t.Run` が出力と実行をスコープしていても、常に [identify the input] (入力を特定) しなければなりません。
-テーブルテストの行名は、[subtest naming] (サブテストの命名) のガイダンスに従わなければなりません。
-
-[identify the input]: #identify-the-input
-[subtest naming]: #subtest-names
+たとえ `t.Run` が出力と実行をスコープしていても、常に[入力を特定](#identify-the-input)しなければなりません。
+テーブルテストの行名は、[サブテストの命名](#subtest-names)のガイダンスに従わなければなりません。
 
 <a id="mark-test-helpers"></a>
 
@@ -3212,7 +3154,7 @@ for i, d := range tests {
 テストヘルパーで発生するすべての失敗は、（テスト対象のコードではなく）環境の失敗であると予想されます。例えば、このマシンにはもう空きポートがないため、テスト用データベースを開始できない場合などです。
 
 もし `*testing.T` を渡した場合、[`t.Helper`] を呼び出して、テストヘルパーの失敗をヘルパーが呼び出された行に帰着させます。
-このパラメータは、[context](#contexts)パラメータがある場合はその後に、残りのパラメータがある場合はその前に置く必要があります。
+このパラメータは、[context](#contexts) パラメータがある場合はその後に、残りのパラメータがある場合はその前に置く必要があります。
 
 ```go
 // Good:
@@ -3237,7 +3179,7 @@ func readFile(t *testing.T, filename string) string {
 特に、[assert libraries](#assert) に関するガイダンスはまだ適用され、[`t.Helper`] はそのようなライブラリの実装に使用すべきではありません。
 
 **Tip:**
-テストヘルパーとアサーションヘルパーの区別については、[best practices](best-practices.ja.md#test-functions)を参照してください。
+テストヘルパーとアサーションヘルパーの区別については、[best practices](best-practices.ja.md#test-functions) を参照してください。
 
 上記は `*testing.T` の話ですが、ベンチマークや ファズヘルパーについても同様のことが言えます。
 
@@ -3286,7 +3228,6 @@ go_test(
 これにより、より良いテストカバレッジと、より簡潔なテストが可能になるかもしれません。
 テスト内で宣言された [examples] は、ユーザーがコードで必要とするパッケージ名を持っていないことに注意してください。
 
-[`library`]: https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/rules.md#go_library
 [examples]: #examples
 
 <a id="test-different-package"></a>
@@ -3295,7 +3236,7 @@ go_test(
 
 テストされるコードと同じパッケージでテストを定義することは、必ずしも適切とは限りません。
 このような場合は、パッケージ名に `_test` という接尾辞を付けてください。
-これは、[package names](#package-names) (パッケージ名) の「アンダースコアなし」ルールの例外となります。
+これは、[パッケージ名s](#package-names)の「アンダースコアなし」ルールの例外となります。
 例えば、以下のようになります：
 
 * 結合テストが所属するライブラリが明らかでない場合
@@ -3325,20 +3266,20 @@ go_test(
 
 Go の標準ライブラリには、[`testing` package] が用意されています。
 これは、Google コードベースの Go コードに許可されている唯一のテストフレームワークです。
-特に、[assertion libraries](#assert) (アサーションライブラリ) やサードパーティ製のテストフレームワークは許可されていません。
+特に、[assertion libraries](#assert)やサードパーティ製のテストフレームワークは許可されていません。
 
-`testing`パッケージは、良いテストを書くための最小限の、しかし完全な機能セットを提供します：
+`testing` パッケージは、良いテストを書くための最小限の、しかし完全な機能セットを提供します：
 
 * トップレベルテスト
 * ベンチマーク
-* [Runnable examples](https://blog.golang.org/examples) (実行可能な例)
+* [実行可能な例](https://blog.golang.org/examples)
 * サブテスト
 * ロギング
 * 失敗と致命的な失敗
 
 These are designed to work cohesively with core language features like [composite literal] and [if-with-initializer] syntax to enable test authors to write [].
 
-これらは、「[composite literal] (複合リテラル)」や「[if-with-initializer]」構文などの中核となる言語機能と協調して動作し、テスト作成者が「[clear, readable, and maintainable tests] (明確で、読みやすく、保守性の高いテスト)」を書くことができるように設計されています。
+これらは、「[複合リテラル](https://go.dev/ref/spec#Composite_literals)」や「[if-with-initializer]」構文などの中核となる言語機能と協調して動作し、テスト作成者が「[clear, readable, and maintainable tests] (明確で、読みやすく、保守性の高いテスト)」を書くことができるように設計されています。
 
 [`testing` package]: https://pkg.go.dev/testing
 [composite literal]: https://go.dev/ref/spec#Composite_literals
@@ -3352,19 +3293,16 @@ These are designed to work cohesively with core language features like [composit
 とはいえ、ここでは、読みやすさのコミュニティが以前から議論し、コンセンサスを得られていない事柄をいくつか紹介します。
 
 * **ローカル変数のゼロ値での初期化**: `var i int` と `i := 0` は等価です。
-  [initialization best practices] (初期化のベストプラクティス) も参照してください。
+  [初期化のベストプラクティス](best-practices.ja.md#vardeclinitialization)も参照してください。
 * **空の複合リテラルと `new` または `make` の比較**: `&File{}` と `new(File)` は等価です。
   `map[string]bool{}` と `make(map[string]bool)` も同様です。
-  [composite declaration best practices] (複合宣言のベストプラクティス) も参照してください。
-* **`cmp.Diff` の呼び出しで引数の順序を変えたい**: ローカルに一貫性を持たせ、失敗メッセージには [include a legend](#print-diffs) (凡例) を入れてください。
+  [複合宣言のベストプラクティス](best-practices.ja.md#vardeclcomposite)も参照してください。
+* **`cmp.Diff` の呼び出しで引数の順序を変えたい**: ローカルに一貫性を持たせ、失敗メッセージには [凡例](#print-diffs)を入れてください。
 * **書式なし文字列の `errors.New` と `fmt.Errorf` の比較**:
   `errors.New("foo")` と `fmt.Errorf("foo")` は同じ意味で使用することができます。
 
 もし、それらが再び出てくるような特別な状況があれば、読みやすさのメンターがオプションでコメントをつけるかもしれませんが、一般的には、著者は与えられた状況で好きなスタイルを自由に選ぶことができます。
 
 もちろん、スタイルガイドに記載されていないことで、さらに議論が必要なことがあれば、著者の方は、具体的なレビューや社内掲示板で質問していただいて結構です。
-
-[composite declaration best practices]: https://google.github.io/styleguide/go/best-practices#vardeclcomposite
-[initialization best practices]: https://google.github.io/styleguide/go/best-practices#vardeclinitialization
 
 {% endraw %}
