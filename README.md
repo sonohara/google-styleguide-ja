@@ -7,7 +7,9 @@
 
 ## Overview
 
-- [Go](go/index.ja.md)
+https://sonohara.github.io/google-styleguide-ja/
+
+- [Go](https://sonohara.github.io/google-styleguide-ja/go/index.ja.html)
 
 ## License
 
